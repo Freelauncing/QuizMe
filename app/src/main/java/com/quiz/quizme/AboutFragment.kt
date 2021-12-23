@@ -1,4 +1,4 @@
-package com.quiz.quizme.student
+package com.quiz.quizme
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

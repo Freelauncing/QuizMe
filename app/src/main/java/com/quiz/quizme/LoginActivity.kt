@@ -7,16 +7,15 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Button
 import android.content.Intent
+import android.util.Log
+import android.widget.EditText
 import android.widget.TextView
-import com.quiz.quizme.student.StudentMainActivity
 
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        getSupportActionBar()!!.hide();
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -27,10 +26,18 @@ class LoginActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+        val username = findViewById<EditText>(R.id.editTextTextPersonName)
 
         val signIn = findViewById<Button>(R.id.button)
         signIn.setOnClickListener {
-            val myIntent = Intent(this@LoginActivity, StudentMainActivity::class.java)
+           Log.v("Kaloo",username.text.toString())
+
+            val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
+            if(username.text.toString().equals("a")) {
+                myIntent.putExtra("Role", "admin")
+            }else{
+                myIntent.putExtra("Role", "student")
+            }
             this@LoginActivity.startActivity(myIntent)
         }
 

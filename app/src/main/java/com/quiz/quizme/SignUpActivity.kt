@@ -8,14 +8,11 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
-import com.quiz.quizme.student.StudentMainActivity
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
-        getSupportActionBar()!!.hide();
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -29,7 +26,8 @@ class SignUpActivity : AppCompatActivity() {
 
         val btnSignUp = findViewById<Button>(R.id.btnSignUp)
         btnSignUp.setOnClickListener {
-            val myIntent = Intent(this@SignUpActivity, StudentMainActivity::class.java)
+            val myIntent = Intent(this@SignUpActivity, MainActivity::class.java)
+            myIntent.putExtra("Role", "student")
             this@SignUpActivity.startActivity(myIntent)
         }
 

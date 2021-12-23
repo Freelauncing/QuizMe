@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".student.StudentMainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:exported="true" />
         <activity

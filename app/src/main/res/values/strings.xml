@@ -8,7 +8,11 @@
     <string name="about_text">Quiz Me will help remind you of important concepts you have learned and will learn in Mathematics.\n\n These questions will help you to sharp your mathematics skills to participate in International Championship</string>
     <string name="rules_text">Select the answer from the options given. Each time you get an answer correct, you advance to the next question.\n\nIf you get the answer wrong, your game ends! You can return to the title screen using up or back from within the game screen, and this will also end your game.</string>
     <string name="rules">Rules</string>
+    <string name="home">Home</string>
     <string name="about">About</string>
+    <string name="statistics">Statistics</string>
+    <string name="addquestion">Add Question</string>
+    <string name="logout">Logout</string>
     <string name="trivia_hint">Quiz Me Hint</string>
     <string name="title_android_trivia_question">Quiz Me (%1$d/%2$d)</string>
     <string name="title_about_trivia">About Quiz Me</string>
