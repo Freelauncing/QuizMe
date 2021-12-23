@@ -1,4 +1,4 @@
-package com.quiz.quizme
+package com.quiz.quizme.student
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,17 +10,17 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.quiz.quizme.R
-import com.quiz.quizme.databinding.ActivityMainBinding
+import com.quiz.quizme.databinding.ActivityMainStudentBinding
 
-class MainActivity : AppCompatActivity() {
+class StudentMainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding : ActivityMainStudentBinding
     private lateinit var drawerLayout : DrawerLayout
     private lateinit var appBarConfiguration : AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_student)
 
         drawerLayout = binding.drawerLayout
 
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+
         NavigationUI.setupWithNavController(binding.navView,navController)
     }
 

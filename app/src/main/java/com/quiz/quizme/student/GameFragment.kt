@@ -1,14 +1,15 @@
-package com.quiz.quizme
+package com.quiz.quizme.student
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import com.quiz.quizme.R
 import com.quiz.quizme.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -56,7 +57,7 @@ class GameFragment : Fragment() {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             // Inflate the layout for this fragment
-            binding = DataBindingUtil.inflate(inflater,R.layout.fragment_game,container,false)
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game,container,false)
 
             // Shuffles the questions and sets the question index to the first question.
             randomizeQuestions()
@@ -100,14 +101,18 @@ class GameFragment : Fragment() {
                             // 2 when we pass arguments safely
 
                             view.findNavController().navigate(
-                                GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions,questionIndex),
+                                GameFragmentDirections.actionGameFragmentToGameWonFragment(
+                                    numQuestions,
+                                    questionIndex
+                                ),
                                 NavOptions.Builder().setPopUpTo(R.id.gameFragment,true).build())
                         }
                     } else {
                         // Game over! A wrong answer sends us to the gameOverFragment.
 //                    view.findNavController().navigate(R.id.gameOverFragment,null,
 //                        NavOptions.Builder().setPopUpTo(R.id.gameFragment,true).build())
-                        view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment(),
+                        view.findNavController().navigate(
+                            GameFragmentDirections.actionGameFragmentToGameOverFragment(),
                             NavOptions.Builder().setPopUpTo(R.id.gameFragment,true).build())
                     }
                 }

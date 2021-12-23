@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".GameFragment">
+    tools:context=".student.GameFragment">
 
     <data>
         <variable
             name="game"
-            type="com.quiz.quizme.GameFragment" />
+            type="com.quiz.quizme.student.GameFragment" />
     </data>
     <ScrollView
         android:layout_width="match_parent"

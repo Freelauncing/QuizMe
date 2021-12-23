@@ -1,4 +1,4 @@
-package com.quiz.quizme
+package com.quiz.quizme.student
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.quiz.quizme.R
 import com.quiz.quizme.databinding.FragmentGameWonBinding
 
 
