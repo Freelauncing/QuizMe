@@ -16,10 +16,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout : DrawerLayout
     private lateinit var appBarConfiguration : AppBarConfiguration
 
-    companion object {
-        var Role: String = ""
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration =
             AppBarConfiguration.Builder(
                 R.id.homeFragment,
-                R.id.titleFragment,
                 R.id.aboutFragment,
                 R.id.rulesFragment,
                 R.id.statisticsFragment,
@@ -43,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        Role = intent.getStringExtra("Role").toString()
+        var Role = intent.getStringExtra("Role").toString()
 
         Toast.makeText(this,Role,Toast.LENGTH_SHORT).show()
 

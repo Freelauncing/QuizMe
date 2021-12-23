@@ -13,6 +13,11 @@ import android.widget.TextView
 
 
 class LoginActivity : AppCompatActivity() {
+
+    companion object {
+        var Role: String = ""
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -35,8 +40,10 @@ class LoginActivity : AppCompatActivity() {
             val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
             if(username.text.toString().equals("a")) {
                 myIntent.putExtra("Role", "admin")
+                Role = "admin"
             }else{
                 myIntent.putExtra("Role", "student")
+                Role = "student"
             }
             this@LoginActivity.startActivity(myIntent)
         }
