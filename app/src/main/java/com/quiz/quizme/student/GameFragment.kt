@@ -10,39 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.quiz.quizme.R
+import com.quiz.quizme.data.model.Question
+import com.quiz.quizme.data.model.SampleData
 import com.quiz.quizme.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
 
-        data class Question(
-            val text: String,
-            val answers: List<String>)
 
         private lateinit var binding : FragmentGameBinding
 
         // the first one option is correct in here but it will change when we use
-        private val questions: MutableList<Question> = mutableListOf(
-            Question(text = "What is Android Jetpack?",
-                answers = listOf("all of these", "tools", "documentation", "libraries")),
-            Question(text = "Base class for Layout?",
-                answers = listOf("ViewGroup", "ViewSet", "ViewCollection", "ViewRoot")),
-            Question(text = "Layout for complex Screens?",
-                answers = listOf("ConstraintLayout", "GridLayout", "LinearLayout", "FrameLayout")),
-            Question(text = "Pushing structured data into a Layout?",
-                answers = listOf("Data Binding", "Data Pushing", "Set Text", "OnClick")),
-            Question(text = "Inflate layout in fragments?",
-                answers = listOf("onCreateView", "onViewCreated", "onCreateLayout", "onInflateLayout")),
-            Question(text = "Build system for Android?",
-                answers = listOf("Gradle", "Graddle", "Grodle", "Groyle")),
-            Question(text = "Android vector format?",
-                answers = listOf("VectorDrawable", "AndroidVectorDrawable", "DrawableVector", "AndroidVector")),
-            Question(text = "Android Navigation Component?",
-                answers = listOf("NavController", "NavCentral", "NavMaster", "NavSwitcher")),
-            Question(text = "Registers app with launcher?",
-                answers = listOf("intent-filter", "app-registry", "launcher-registry", "app-launcher")),
-            Question(text = "Mark a layout for Data Binding?",
-                answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
-        )
+        private val questions: MutableList<Question> = SampleData.SAMPLE_QUESTIONS
 
         // To track Current Question and Answer
         lateinit var currentQuestion: Question
@@ -51,7 +29,7 @@ class GameFragment : Fragment() {
 
         // TO track question index and total questions
         private var questionIndex = 0
-        private val numQuestions = Math.min((questions.size + 1) / 2, 3)
+        private val numQuestions = 14
 
 
 
@@ -84,7 +62,7 @@ class GameFragment : Fragment() {
                     // The first answer in the original question is always the correct one,
                     // currentQuestion.answers[0]
                     // so if our answer matches, we have the correct answer.
-                    if (answers[answerIndex] == currentQuestion.answers[0]) {
+                    if (answers[answerIndex] == currentQuestion.trueAnswer) {
                         questionIndex++
                         // Advance to the next question
                         if (questionIndex < numQuestions) {

@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main_student)
+        setContentView(R.layout.activity_main)
         setupNavigationDrawer()
         setSupportActionBar(findViewById(R.id.toolbar))
 
