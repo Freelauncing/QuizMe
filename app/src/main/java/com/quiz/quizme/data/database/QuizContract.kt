@@ -8,6 +8,7 @@ import android.util.Log
 import com.quiz.quizme.data.model.LoginUser
 import com.quiz.quizme.data.model.Question
 import com.quiz.quizme.data.model.StudentTest
+import java.sql.RowId
 
 
 class QuizContract{
@@ -228,6 +229,37 @@ class QuizContract{
                 }
                 return data
             }
+
+            fun updateQuestionData(question: Question,id: Int): Int {
+                if (!databaseOpen) {
+                    database = INSTANCE.writableDatabase
+                    databaseOpen = true
+
+                    Log.i("Database" , "Database Open")
+                }
+
+                val values = ContentValues()
+                values.put(ROW_QUESTION, question.question)
+                values.put(ROW_QUESTIONCATEGORY, question.category)
+                values.put(ROW_ANSWER1, question.answers.get(0))
+                values.put(ROW_ANSWER2, question.answers.get(1))
+                values.put(ROW_ANSWER3, question.answers.get(2))
+                values.put(ROW_ANSWER4, question.answers.get(3))
+                values.put(ROW_CORRENTANSWER, question.trueAnswer)
+                values.put(ROW_DATE, question.date)
+                return database.update(DATABASE_TABLE_QUESTION, values, "${ROW_ID} = ${id}", null)
+            }
+
+            fun deleteQuestionData(id: Int): Int {
+                if (!databaseOpen) {
+                    database = INSTANCE.writableDatabase
+                    databaseOpen = true
+
+                    Log.i("Database" , "Database Open")
+                }
+                return database.delete(DATABASE_TABLE_QUESTION, "${ROW_ID} = $id", null)
+            }
+
         }
 
         override fun onCreate(p0: SQLiteDatabase?) {
