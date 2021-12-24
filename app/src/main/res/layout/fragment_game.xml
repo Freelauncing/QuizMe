@@ -12,10 +12,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frameLayout"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -23,12 +25,11 @@
                 android:id="@+id/questionText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/question_horizontal_margin"
                 android:layout_marginTop="@dimen/vertical_margin"
-                android:layout_marginEnd="@dimen/question_horizontal_margin"
                 android:layout_marginBottom="@dimen/vertical_margin"
                 android:fontFamily="sans-serif"
-                android:text="@{game.currentQuestion.question}"
+                app:autoSizeTextType="uniform"
+                android:text="@{`Question: `+game.currentQuestion.question}"
                 android:textSize="@dimen/question_text_size"
                 android:textStyle="bold"
                 android:typeface="normal"
@@ -41,9 +42,7 @@
                 android:id="@+id/questionRadioGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/question_horizontal_margin"
-                android:layout_marginTop="@dimen/vertical_margin"
-                android:layout_marginEnd="@dimen/question_horizontal_margin"
+                android:layout_marginTop="@dimen/question_horizontal_margin"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
-                    android:checked="true"
+                    app:autoSizeTextType="uniform"
                     android:buttonTint="@color/colorPrimary"
                     android:text="@{game.answers[0]}"
                     android:textSize="@dimen/answer_text_size"
@@ -66,6 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
+                    app:autoSizeTextType="uniform"
                     android:buttonTint="@color/colorPrimary"
                     android:text="@{game.answers[1]}"
                     android:textSize="@dimen/answer_text_size"
@@ -76,6 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
+                    app:autoSizeTextType="uniform"
                     android:text="@{game.answers[2]}"
                     android:buttonTint="@color/colorPrimary"
                     android:textSize="@dimen/answer_text_size"
@@ -86,23 +87,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{game.answers[3]}"
+                    app:autoSizeTextType="uniform"
                     android:buttonTint="@color/colorPrimary"
                     android:textSize="@dimen/answer_text_size"
                     tools:text="Red" />
             </RadioGroup>
-
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/submitButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/question_horizontal_margin"
-                android:layout_marginTop="@dimen/vertical_margin"
-                android:layout_marginEnd="@dimen/question_horizontal_margin"
-                android:text="@string/submit_button"
-                android:textSize="@dimen/button_text_size"
+                style="@style/button_lg_green"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:elevation="10dp"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionRadioGroup" />
+                tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

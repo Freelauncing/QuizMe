@@ -10,36 +10,174 @@
         android:layout_height="match_parent"
         android:background="@color/youWinBackground">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/nextMatchButton"
+            style="@style/button_lg_green"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/button_padding"
-            android:paddingEnd="@dimen/button_padding"
-            android:text="Next Match"
-            android:textColor="@color/youWinDark"
-            android:textSize="@dimen/button_text_size"
-            android:textStyle="bold"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="10dp"
+            android:text="Retake Quiz"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/youWinImage" />
+            app:layout_constraintTop_toBottomOf="@+id/youWinImage"
+            tools:ignore="MissingConstraints" />
 
-        <ImageView
+         <androidx.cardview.widget.CardView
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            android:elevation="3dp"
+            app:cardCornerRadius="4dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            tools:ignore="MissingConstraints"
             android:id="@+id/youWinImage"
             android:layout_width="0dp"
-            android:layout_height="@dimen/game_over_height"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginBottom="@dimen/vertical_margin"
+            android:layout_height="180dp"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/nextMatchButton"
-            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:layout_constraintTop_toTopOf="parent">
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="vertical">
+
+                 <LinearLayout
+                     android:background="@color/white"
+                     android:layout_margin="16dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="0dp"
+                     android:layout_weight="1"
+                     android:orientation="horizontal">
+                     <TextView
+                         android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:layout_height="match_parent"
+                         android:text="Correct Answer"
+                         android:gravity="center"
+                         android:textSize="20sp"
+                         android:textColor="@color/colorPrimary"
+                         style="@style/my_heading_lg"
+                         app:layout_constraintBottom_toTopOf="@+id/youWinImage"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent" />
+                     <TextView
+                         android:id="@+id/correct"
+                         android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:layout_height="match_parent"
+                         android:text="0"
+                         android:gravity="center"
+                         android:textSize="20sp"
+                         android:textColor="@color/colorPrimary"
+                         style="@style/my_heading_lg"
+                         app:layout_constraintBottom_toTopOf="@+id/youWinImage"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent" />
+                 </LinearLayout>
+                 <LinearLayout
+                     android:background="@color/white"
+                     android:layout_margin="16dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="0dp"
+                     android:layout_weight="1"
+                     android:orientation="horizontal">
+                     <TextView
+                         android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:layout_height="match_parent"
+                         android:text="Wrong Answer"
+                         android:textColor="@color/red"
+                         style="@style/my_heading_lg"
+                         android:gravity="center"
+                         android:textSize="20sp"
+                         app:layout_constraintBottom_toTopOf="@+id/youWinImage"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent" />
+                     <TextView
+                         android:id="@+id/wrong"
+                         android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:layout_height="match_parent"
+                         android:text="0"
+                         android:gravity="center"
+                         android:textSize="20sp"
+                         android:textColor="@color/red"
+                         style="@style/my_heading_lg"
+                         app:layout_constraintBottom_toTopOf="@+id/youWinImage"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent" />
+                 </LinearLayout>
+                 <LinearLayout
+                     android:background="@color/white"
+                     android:layout_margin="16dp"
+                     android:layout_width="match_parent"
+                     android:layout_height="0dp"
+                     android:layout_weight="1"
+                     android:orientation="horizontal">
+                     <TextView
+                         android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:layout_height="match_parent"
+                         android:text="Total Score"
+                         android:textColor="@color/black"
+                         style="@style/my_heading_lg"
+                         android:gravity="center"
+                         android:textSize="20sp"
+                         app:layout_constraintBottom_toTopOf="@+id/youWinImage"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent" />
+                     <TextView
+                         android:id="@+id/total"
+                         android:layout_width="0dp"
+                         android:layout_weight="1"
+                         android:layout_height="match_parent"
+                         android:text="0"
+                         android:gravity="center"
+                         android:textSize="20sp"
+                         android:textColor="@color/black"
+                         style="@style/my_heading_lg"
+                         app:layout_constraintBottom_toTopOf="@+id/youWinImage"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent" />
+                 </LinearLayout>
+             </LinearLayout>
+         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Result"
+            android:textColor="@color/colorPrimaryDark"
+            style="@style/my_heading_lg"
+            app:layout_constraintBottom_toTopOf="@+id/youWinImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
