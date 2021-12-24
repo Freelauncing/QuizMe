@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.quiz.quizme.R
+import com.quiz.quizme.data.database.QuizContract
+import com.quiz.quizme.data.model.StudentTest
 import com.quiz.quizme.databinding.FragmentGameWonBinding
 
 
@@ -32,11 +34,13 @@ class GameWonFragment : Fragment() {
         binding.total.text = args.numCorrect.toString() + "/" + args.numQuestions.toString()
 
         binding.nextMatchButton.setOnClickListener{
-//            it.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
             it.findNavController().navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
-
         }
 
+
+        QuizContract.DatabaseHelper.insertStudentTestData(
+            StudentTest(
+            "test","Complete Test",args.numCorrect.toString(),args.numQuestions.toString(),args.numCorrect.toString()+" G ","24-12-2021"))
         setHasOptionsMenu(true)
         return binding.root
     }

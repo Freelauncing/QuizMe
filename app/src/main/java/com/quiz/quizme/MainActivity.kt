@@ -10,6 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.quiz.quizme.data.database.QuizContract
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        QuizContract.DatabaseHelper.initDatabaseInstance(this)
 
         setContentView(R.layout.activity_main)
         setupNavigationDrawer()
@@ -59,5 +62,10 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setupNavigationDrawer() {
         drawerLayout = (findViewById<DrawerLayout>(R.id.drawerLayout))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        QuizContract.DatabaseHelper.closeDatabase()
     }
 }
