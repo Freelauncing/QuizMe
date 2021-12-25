@@ -15,4 +15,14 @@
     <color name="youWinBackground">#B7F8C9</color>
     <color name="gameOverBackground">#f8bbd0</color>
     <color name="red">#ff9a9a</color>
+
+    <color name="primaryTextColor">#263238</color>
+    <color name="secondaryTextColor">#eceff1</color>
+
+    <!-- My Colors -->
+    <color name="colorGrey">#757575</color>
+    <color name="error">#ff3333</color>
+    <color name="text_primary">#111111</color>
+    <color name="text_secondary">#333333</color>
+    <color name="background_body">#F4F4F4</color>
 </resources>

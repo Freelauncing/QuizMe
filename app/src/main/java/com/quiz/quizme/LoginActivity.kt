@@ -22,6 +22,8 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         var Role: String = ""
+        var Fullname:String=""
+        var Username:String=""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +82,8 @@ class LoginActivity : AppCompatActivity() {
         val list =  QuizContract.DatabaseHelper.getAllLoginUserData()
         list.forEach { item->
             if(item.username.equals(username) && item.password.equals(password)){
+                Fullname = item.fullname
+                Username = item.username
                 return true
             }
         }

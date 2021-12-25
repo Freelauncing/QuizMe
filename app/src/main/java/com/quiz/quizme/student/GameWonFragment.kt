@@ -8,13 +8,28 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.quiz.quizme.LoginActivity
 import com.quiz.quizme.R
 import com.quiz.quizme.data.database.QuizContract
 import com.quiz.quizme.data.model.StudentTest
 import com.quiz.quizme.databinding.FragmentGameWonBinding
+import java.text.SimpleDateFormat
+import java.util.*
+import com.github.mikephil.charting.data.PieEntry
+
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieDataSet
+
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.components.Legend
+import kotlin.collections.ArrayList
 
 
 class GameWonFragment : Fragment() {
+
+    var pieChart: PieChart? = null
+    var pieEntries: ArrayList<PieEntry>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,14 +48,43 @@ class GameWonFragment : Fragment() {
         binding.wrong.text = (args.numQuestions - args.numCorrect).toString()
         binding.total.text = args.numCorrect.toString() + "/" + args.numQuestions.toString()
 
+        pieChart = binding.pieChart
+
+        val correct = args.numCorrect
+        val incorrect = args.numQuestions - args.numCorrect
+
+        pieEntries = arrayListOf()
+        pieEntries!!.add(PieEntry(correct.toFloat(),"Correct"))
+        pieEntries!!.add(PieEntry(incorrect.toFloat(),"Incorrect"))
+
+        val pieDataSet = PieDataSet(pieEntries, "")
+        pieDataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
+        pieDataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+        pieDataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+        pieDataSet.valueTextSize = 16f
+
+        val pieData = PieData(pieDataSet)
+        pieChart!!.data = pieData
+
+        val legend = pieChart!!.legend
+        legend.textSize = 13f
+        legend.setDrawInside(false)
+        legend.textColor = resources.getColor(R.color.colorPrimaryDark)
+        legend.isWordWrapEnabled = true
+
+        pieChart!!.animateXY(1000,1000);
+        pieChart!!.invalidate();
+
         binding.nextMatchButton.setOnClickListener{
             it.findNavController().navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
 
+        val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
 
         QuizContract.DatabaseHelper.insertStudentTestData(
             StudentTest(
-            "test","Complete Test",args.numCorrect.toString(),args.numQuestions.toString(),args.numCorrect.toString()+" G ","24-12-2021"))
+            LoginActivity.Username,LoginActivity.Fullname,args.numCorrect.toString(),args.numQuestions.toString(),args.numCorrect.toString()+" G ",currentDate))
         setHasOptionsMenu(true)
         return binding.root
     }
