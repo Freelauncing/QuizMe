@@ -10,6 +10,12 @@ import android.content.Intent
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import com.quiz.quizme.data.database.QuizContract
+import com.quiz.quizme.data.model.LoginUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import java.util.concurrent.Executors
 
 
 class LoginActivity : AppCompatActivity() {
@@ -22,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        QuizContract.DatabaseHelper.initDatabaseInstance(this)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -32,27 +40,55 @@ class LoginActivity : AppCompatActivity() {
             )
         }
         val username = findViewById<EditText>(R.id.editTextTextPersonName)
+        val password = findViewById<EditText>(R.id.edtTextPassword)
 
         val signIn = findViewById<Button>(R.id.button)
         signIn.setOnClickListener {
            Log.v("Kaloo",username.text.toString())
 
-            val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
-            if(username.text.toString().equals("a")) {
-                myIntent.putExtra("Role", "admin")
-                Role = "admin"
-            }else{
-                myIntent.putExtra("Role", "student")
-                Role = "student"
+            if(username.text.isNullOrEmpty() || password.text.isNullOrEmpty()){
+                Toast.makeText(this,"Credentials Missing",Toast.LENGTH_SHORT).show()
+            }else {
+                if(checkCredentials(username.text.toString(),password.text.toString())) {
+                    val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                    if (username.text.toString().equals("a")) {
+                        myIntent.putExtra("Role", "admin")
+                        Role = "admin"
+                    } else {
+                        myIntent.putExtra("Role", "student")
+                        Role = "student"
+                    }
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    this@LoginActivity.startActivity(myIntent)
+                    Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this,"Account Not Found!",Toast.LENGTH_SHORT).show()
+                }
             }
-            this@LoginActivity.startActivity(myIntent)
         }
 
         val textView7 = findViewById<TextView>(R.id.textView7)
         textView7.setOnClickListener {
             val myIntent = Intent(this@LoginActivity, SignUpActivity::class.java)
+            Role = "student"
             this@LoginActivity.startActivity(myIntent)
         }
 
     }
+
+    private fun checkCredentials(username:String,password:String): Boolean {
+        val list =  QuizContract.DatabaseHelper.getAllLoginUserData()
+        list.forEach { item->
+            if(item.username.equals(username) && item.password.equals(password)){
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        QuizContract.DatabaseHelper.closeDatabase()
+    }
+
 }

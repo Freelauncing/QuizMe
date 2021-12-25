@@ -70,6 +70,7 @@
             app:boxStrokeWidth="2dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
+               android:id="@+id/edtTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"

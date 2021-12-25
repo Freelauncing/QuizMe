@@ -61,11 +61,6 @@
         android:name="com.quiz.quizme.RulesFragment"
         android:label="Rules"
         tools:layout="@layout/fragment_rules" />
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.quiz.quizme.LoginActivity"
-        android:label="Login"
-        tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.quiz.quizme.student.StatisticsFragment"

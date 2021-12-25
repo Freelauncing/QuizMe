@@ -1,5 +1,6 @@
 package com.quiz.quizme
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +52,13 @@ class MainActivity : AppCompatActivity() {
             navView.menu.getItem(2).setVisible(false)
         }else{
             navView.menu.getItem(3).setVisible(false)
+        }
+
+        navView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+            val myIntent = Intent(this, LoginActivity::class.java)
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            this@MainActivity.startActivity(myIntent)
+            return@setOnMenuItemClickListener false
         }
 
         navView.setupWithNavController(navController)

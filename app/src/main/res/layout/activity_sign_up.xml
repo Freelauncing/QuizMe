@@ -80,7 +80,7 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tbMobileNumber"
+                android:id="@+id/tbUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="15"
@@ -119,7 +119,7 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tbEmailAddress"
+                android:id="@+id/tbPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="15"

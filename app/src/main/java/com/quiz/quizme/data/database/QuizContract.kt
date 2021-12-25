@@ -8,13 +8,12 @@ import android.util.Log
 import com.quiz.quizme.data.model.LoginUser
 import com.quiz.quizme.data.model.Question
 import com.quiz.quizme.data.model.StudentTest
-import java.sql.RowId
 
 
 class QuizContract{
     companion object {
 
-        val DATABASE_NAME = "db_QUIZZ.db"
+        val DATABASE_NAME = "db_QUIZZES.db"
         val DATABASE_VERSION = 1
 
 
@@ -119,7 +118,7 @@ class QuizContract{
                 values.put(ROW_USERNAME, loginUser.username)
                 values.put(ROW_FULLNAME, loginUser.fullname)
                 values.put(ROW_PASSWORD, loginUser.password)
-                return database.insert(DATABASE_TABLE_STUDENT, null, values)
+                return database.insert(DATABASE_TABLE_LOGINUSER, null, values)
             }
 
             fun insertQuestionsData(question: Question): Long {
@@ -140,7 +139,7 @@ class QuizContract{
                 values.put(ROW_ANSWER4, question.answers.get(3))
                 values.put(ROW_CORRENTANSWER, question.trueAnswer)
                 values.put(ROW_DATE, question.date)
-                return database.insert(DATABASE_TABLE_STUDENT, null, values)
+                return database.insert(DATABASE_TABLE_QUESTION, null, values)
             }
 
             fun getAllStudentData(): MutableList<StudentTest> {
