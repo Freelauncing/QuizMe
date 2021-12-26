@@ -120,12 +120,15 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="90dp"
                             android:ems="15"
                             android:text=""
-                            android:id="@+id/Answer1"
                             android:fontFamily="@font/inter_bold"
-                            android:inputType="text"
+                            android:gravity="top|left"
+                            android:inputType="text|textMultiLine|textCapSentences"
+                            android:maxLines="3"
+                            android:singleLine="false"
+                            android:id="@+id/Answer1"
                             android:textColor="@color/text_primary"
                             android:textCursorDrawable="@drawable/box_cursor_green"
                             android:textSize="13sp" />
@@ -158,12 +161,15 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="90dp"
                             android:ems="15"
                             android:text=""
-                            android:id="@+id/Answer2"
                             android:fontFamily="@font/inter_bold"
-                            android:inputType="text"
+                            android:gravity="top|left"
+                            android:inputType="text|textMultiLine|textCapSentences"
+                            android:maxLines="3"
+                            android:singleLine="false"
+                            android:id="@+id/Answer2"
                             android:textColor="@color/text_primary"
                             android:textCursorDrawable="@drawable/box_cursor_green"
                             android:textSize="13sp" />
@@ -204,12 +210,15 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="90dp"
                             android:ems="15"
                             android:text=""
-                            android:id="@+id/Answer3"
                             android:fontFamily="@font/inter_bold"
-                            android:inputType="text"
+                            android:gravity="top|left"
+                            android:inputType="text|textMultiLine|textCapSentences"
+                            android:maxLines="3"
+                            android:singleLine="false"
+                            android:id="@+id/Answer3"
                             android:textColor="@color/text_primary"
                             android:textCursorDrawable="@drawable/box_cursor_green"
                             android:textSize="13sp" />
@@ -242,12 +251,15 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="90dp"
                             android:ems="15"
                             android:text=""
-                            android:id="@+id/Answer4"
                             android:fontFamily="@font/inter_bold"
-                            android:inputType="text"
+                            android:gravity="top|left"
+                            android:inputType="text|textMultiLine|textCapSentences"
+                            android:maxLines="3"
+                            android:singleLine="false"
+                            android:id="@+id/Answer4"
                             android:textColor="@color/text_primary"
                             android:textCursorDrawable="@drawable/box_cursor_green"
                             android:textSize="13sp" />
@@ -266,7 +278,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Correct Answer"
+                        android:text="Select the Correct Answer"
                         android:layout_margin="16dp"
                         android:textColor="@color/colorPrimary"
                         style="@style/my_heading_md"></TextView>

@@ -54,25 +54,23 @@ class LoginActivity : AppCompatActivity() {
             }else {
                 if(username.text.toString().equals(SampleData.SAMPLE_ADMIN)
                     && password.text.toString().equals(SampleData.SAMPLE_ADMIN_PASSWORD)){
-                    findViewById<EditText>(R.id.editTextTextPersonName).setText("")
-                    findViewById<EditText>(R.id.edtTextPassword).setText("")
                     val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     myIntent.putExtra("Role", "admin")
                     Role = "admin"
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     this@LoginActivity.startActivity(myIntent)
-
-                }
-                else if(checkCredentials(username.text.toString(),password.text.toString())) {
                     findViewById<EditText>(R.id.editTextTextPersonName).setText("")
                     findViewById<EditText>(R.id.edtTextPassword).setText("")
+                }
+                else if(checkCredentials(username.text.toString(),password.text.toString())) {
                     val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     myIntent.putExtra("Role", "student")
                     Role = "student"
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     this@LoginActivity.startActivity(myIntent)
                     Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show()
-
+                    findViewById<EditText>(R.id.editTextTextPersonName).setText("")
+                    findViewById<EditText>(R.id.edtTextPassword).setText("")
                 }else{
                     Toast.makeText(this,"Account Not Found!",Toast.LENGTH_SHORT).show()
                 }

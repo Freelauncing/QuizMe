@@ -1,11 +1,15 @@
 package com.quiz.quizme.student
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
@@ -15,9 +19,20 @@ import com.quiz.quizme.data.model.Question
 import com.quiz.quizme.data.model.SampleData
 import com.quiz.quizme.databinding.FragmentGameBinding
 
+private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
+private val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 400)
+private val GAME_OVER_BUZZ_PATTERN = longArrayOf(0, 1000)
+
 
 class GameFragment : Fragment() {
 
+        enum class BuzzType(val pattern: LongArray) {
+            CORRECT(CORRECT_BUZZ_PATTERN),
+            GAME_OVER(GAME_OVER_BUZZ_PATTERN),
+            INCORRECT(INCORRECT_BUZZ_PATTERN),
+        }
+
+        private var vibrate : Boolean = true
 
         private lateinit var binding : FragmentGameBinding
 
@@ -32,6 +47,21 @@ class GameFragment : Fragment() {
         companion object{
             var questions: MutableList<Question> = SampleData.SAMPLE_QUESTIONS
             var numQuestions = 14
+        }
+        /**
+         * Given a pattern, this method makes sure the device buzzes
+         */
+        private fun buzz(pattern: LongArray) {
+            val buzzer = activity?.getSystemService<Vibrator>()
+            buzzer?.let {
+                // Vibrate for 500 milliseconds
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    buzzer.vibrate(VibrationEffect.createWaveform(pattern, -1))
+                } else {
+                    //deprecated in API 26
+                    buzzer.vibrate(pattern, -1)
+                }
+            }
         }
 
 
@@ -50,12 +80,14 @@ class GameFragment : Fragment() {
             binding.questionRadioGroup.setOnCheckedChangeListener { group, checkedId -> // checkedId is the RadioButton selected
                 lockAnswers()
                 checkAnswer(checkedId)
+                vibrate = true
             }
 
             // Set the onClickListener for the submitButton
             binding.submitButton.setOnClickListener {
                     view:View ->
 
+                vibrate = false
 
                 val checkedId = binding.questionRadioGroup.checkedRadioButtonId
 
@@ -73,6 +105,7 @@ class GameFragment : Fragment() {
                     if (answers[answerIndex] == currentQuestion.trueAnswer) {
                         score++
                         gotoNextQuestion(view)
+
                     } else {
                         gotoNextQuestion(view)
                     }
@@ -105,10 +138,14 @@ class GameFragment : Fragment() {
                     binding.firstAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
+                    if(vibrate)
+                        buzz(BuzzType.CORRECT.pattern)
                 }else{
                     binding.firstAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#ff9a9a")
                     )
+                    if(vibrate)
+                        buzz(BuzzType.INCORRECT.pattern)
                 }
             }
             R.id.secondAnswerRadioButton -> {
@@ -117,10 +154,14 @@ class GameFragment : Fragment() {
                     binding.secondAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
+                    if(vibrate)
+                    buzz(BuzzType.CORRECT.pattern)
                 }else{
                     binding.secondAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#ff9a9a")
                     )
+                    if(vibrate)
+                    buzz(BuzzType.INCORRECT.pattern)
                 }
             }
             R.id.thirdAnswerRadioButton -> {
@@ -129,10 +170,14 @@ class GameFragment : Fragment() {
                     binding.thirdAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
+                    if(vibrate)
+                    buzz(BuzzType.CORRECT.pattern)
                 }else{
                     binding.thirdAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#ff9a9a")
                     )
+                    if(vibrate)
+                    buzz(BuzzType.INCORRECT.pattern)
                 }
             }
             R.id.fourthAnswerRadioButton -> {
@@ -141,10 +186,14 @@ class GameFragment : Fragment() {
                     binding.fourthAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
+                    if(vibrate)
+                    buzz(BuzzType.CORRECT.pattern)
                 }else{
                     binding.fourthAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#ff9a9a")
                     )
+                    if(vibrate)
+                    buzz(BuzzType.INCORRECT.pattern)
                 }
             }
         }
@@ -166,6 +215,7 @@ class GameFragment : Fragment() {
             setQuestion()
             binding.invalidateAll()
         } else {
+            buzz(BuzzType.GAME_OVER.pattern)
             // We've won!  Navigate to the gameWonFragment.
             view.findNavController().navigate(
                 GameFragmentDirections.actionGameFragmentToGameWonFragment(
