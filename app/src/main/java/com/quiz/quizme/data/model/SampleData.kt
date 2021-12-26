@@ -3,6 +3,11 @@ package com.quiz.quizme.data.model
 
 class SampleData {
     companion object{
+
+        val SAMPLE_ADMIN = "admin"
+
+        val SAMPLE_ADMIN_PASSWORD = "123"
+
         val SAMPLE_QUESTIONS: MutableList<Question> = mutableListOf(
             Question(
                 question = "Choose the number that goes in the blank.\n"+"2,000 + _____ + 30 + 9 = 2,739",

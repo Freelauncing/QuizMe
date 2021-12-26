@@ -261,6 +261,7 @@ class MyCustomAdapter(private val mList: List<ReadQuestion>,private val context:
         // sets the image to the imageview from our itemHolder class
         holder.questionText_.setText(ItemsViewModel.question)
         holder.answerText_.setText(ItemsViewModel.trueAnswer)
+        holder.categoryText_.setText(ItemsViewModel.category)
         holder.editQuestion_.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToEditQuestionFragment(
                 ItemsViewModel.id
@@ -282,6 +283,7 @@ class MyCustomAdapter(private val mList: List<ReadQuestion>,private val context:
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val questionText_: TextView = itemView.findViewById(R.id.questionText)
         val answerText_: TextView = itemView.findViewById(R.id.answerText)
+        val categoryText_: TextView = itemView.findViewById(R.id.categoryText)
         val editQuestion_: Button = itemView.findViewById(R.id.editQuestion)
         val deleteQuestion_: Button = itemView.findViewById(R.id.deleteQuestion)
     }
