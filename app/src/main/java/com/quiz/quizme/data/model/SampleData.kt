@@ -106,7 +106,7 @@ class SampleData {
         val SAMPLE_CATEGORIES : MutableList<QuestionCategory> = mutableListOf(
             QuestionCategory(categoryName = "Number – number and place value"),
             QuestionCategory(categoryName = "Number – addition and subtraction"),
-            QuestionCategory(categoryName = "Number – multiplication and division\n"),
+            QuestionCategory(categoryName = "Number – multiplication and division"),
             QuestionCategory(categoryName = "Number – fractions"),
             QuestionCategory(categoryName = "Measurement"),
             QuestionCategory(categoryName = "Geometry – properties of shapes"),

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.quiz.quizme.data.model.LoginUser
 import com.quiz.quizme.data.model.Question
+import com.quiz.quizme.data.model.ReadQuestion
 import com.quiz.quizme.data.model.StudentTest
 
 
@@ -197,7 +198,7 @@ class QuizContract{
                 return data
             }
 
-            fun getAllQuestionData(): MutableList<Question> {
+            fun getAllQuestionData(): MutableList<ReadQuestion> {
                 if (!databaseOpen) {
                     database = INSTANCE.writableDatabase
                     databaseOpen = true
@@ -205,13 +206,14 @@ class QuizContract{
                     Log.i("Database" , "Database Open")
                 }
 
-                val data: MutableList<Question> = ArrayList()
+                val data: MutableList<ReadQuestion> = ArrayList()
                 val cursor = database.rawQuery("SELECT * FROM ${DATABASE_TABLE_QUESTION}", null)
                 cursor.use { cur ->
                     if (cursor.moveToFirst()) {
                         do {
 
-                            val question = Question(
+                            val question = ReadQuestion(
+                                cur.getInt(0),
                                 cur.getString(1),
                                 cur.getString(2),
                                 listOf<String>(cur.getString(3),

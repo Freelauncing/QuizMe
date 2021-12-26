@@ -31,7 +31,7 @@ class GameFragment : Fragment() {
 
         companion object{
             var questions: MutableList<Question> = SampleData.SAMPLE_QUESTIONS
-            var numQuestions = 3
+            var numQuestions = 14
         }
 
 

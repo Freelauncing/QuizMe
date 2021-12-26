@@ -20,15 +20,19 @@
         <entry key="app/src/main/res/layout/activity_main_admin.xml" value="0.20969202898550723" />
         <entry key="app/src/main/res/layout/activity_main_student.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/custom_delete_dialogue.xml" value="0.20425724637681159" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/layout/fragment_add_new_question.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_edit_question.xml" value="0.20425724637681159" />
         <entry key="app/src/main/res/layout/fragment_game.xml" value="0.20969202898550723" />
         <entry key="app/src/main/res/layout/fragment_game_over.xml" value="0.20969202898550723" />
         <entry key="app/src/main/res/layout/fragment_game_won.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.20969202898550723" />
+        <entry key="app/src/main/res/layout/fragment_home_admin.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_rules.xml" value="0.20969202898550723" />
         <entry key="app/src/main/res/layout/fragment_statistics.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_title.xml" value="0.20969202898550723" />
+        <entry key="app/src/main/res/layout/item_admin_question.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_student_record.xml" value="0.45" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.21105072463768115" />
         <entry key="app/src/main/res/menu/navdrawer_menu.xml" value="0.16770833333333332" />

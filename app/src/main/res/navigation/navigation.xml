@@ -83,5 +83,16 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_homeFragment_to_editQuestionFragment"
+            app:destination="@id/editQuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editQuestionFragment"
+        android:name="com.quiz.quizme.admin.EditQuestionFragment"
+        android:label="Edit Question" >
+        <argument
+            android:name="questionID"
+            app:argType="integer" />
     </fragment>
 </navigation>

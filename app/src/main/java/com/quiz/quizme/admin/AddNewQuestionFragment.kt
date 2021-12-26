@@ -90,7 +90,8 @@ class AddNewQuestionFragment : Fragment() , AdapterView.OnItemSelectedListener{
 
                 val id = QuizContract.DatabaseHelper.insertQuestionsData(question)
                 if (id != null) {
-                    Toast.makeText(requireContext(), "Question Added", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Question Added Successfully !!!", Toast.LENGTH_LONG).show()
+                    resetThings(view)
                 }
                 Log.v(
                     "DATOO",
@@ -102,6 +103,16 @@ class AddNewQuestionFragment : Fragment() , AdapterView.OnItemSelectedListener{
 
 
         }
+    }
+
+    private fun resetThings(view: View) {
+        view.findViewById<EditText>(R.id.newQuestion).setText("")
+        view.findViewById<EditText>(R.id.Answer1).setText("")
+        view.findViewById<EditText>(R.id.Answer2).setText("")
+        view.findViewById<EditText>(R.id.Answer3).setText("")
+        view.findViewById<EditText>(R.id.Answer4).setText("")
+        view.findViewById<Spinner>(R.id.spinner).setSelection(0)
+        view.findViewById<RadioButton>(R.id.firstAnswerRadioButton).setChecked(true)
     }
 
     private fun getTrueAnswer(checkedId: Int): String? {

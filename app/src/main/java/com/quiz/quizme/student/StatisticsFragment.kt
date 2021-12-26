@@ -57,7 +57,7 @@ class StatisticsFragment : Fragment() {
 
         Log.v("CHECK",data.toString())
         // This will pass the ArrayList to our Adapter
-        val adapter = CustomAdapter(data)
+        val adapter = CustomAdapter(data.reversed())
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
