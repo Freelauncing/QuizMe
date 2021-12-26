@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.fragment.navArgs
 import com.quiz.quizme.R
+import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.database.QuizContract
-import com.quiz.quizme.data.model.Question
-import com.quiz.quizme.data.model.ReadQuestion
+import com.quiz.quizme.data.model.QuestionModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,7 +64,7 @@ class EditQuestionFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val list = QuizContract.DatabaseHelper.getAllQuestionData()
+        val list = DatabaseHelper.getAllQuestionData()
 
         Log.v("CHKK",list.toString())
 
@@ -135,7 +135,7 @@ class EditQuestionFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val currentDate = sdf.format(Date())
 
             val trueAnswer = getTrueAnswer(radioGroup.checkedRadioButtonId)
-            val question = Question(
+            val question = QuestionModel(
                 Question,
                 selectedCategory,
                 listOf(
@@ -145,7 +145,7 @@ class EditQuestionFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 currentDate
             )
 
-            val id = QuizContract.DatabaseHelper.updateQuestionData(question,questionId)
+            val id = DatabaseHelper.updateQuestionData(question,questionId)
             if (id != null) {
                 Toast.makeText(requireContext(), "Question Updated Successfully !!!", Toast.LENGTH_SHORT).show()
             }

@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.quiz.quizme.R
-import com.quiz.quizme.data.model.Question
-import com.quiz.quizme.data.model.SampleData
+import com.quiz.quizme.data.model.QuestionModel
+import com.quiz.quizme.data.database.SampleData
 import com.quiz.quizme.databinding.FragmentGameBinding
 
 private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
@@ -37,7 +37,7 @@ class GameFragment : Fragment() {
         private lateinit var binding : FragmentGameBinding
 
         // To track Current Question and Answer
-        lateinit var currentQuestion: Question
+        lateinit var currentQuestionModel: QuestionModel
         lateinit var answers: MutableList<String>
 
         // TO track question index and total questions
@@ -45,7 +45,7 @@ class GameFragment : Fragment() {
         private var score:Int =0
 
         companion object{
-            var questions: MutableList<Question> = SampleData.SAMPLE_QUESTIONS
+            var questionModels: MutableList<QuestionModel> = SampleData.SAMPLE_QUESTION_MODELS
             var numQuestions = 14
         }
         /**
@@ -102,7 +102,7 @@ class GameFragment : Fragment() {
 
                     binding.questionRadioGroup.clearCheck()
 
-                    if (answers[answerIndex] == currentQuestion.trueAnswer) {
+                    if (answers[answerIndex] == currentQuestionModel.trueAnswer) {
                         score++
                         gotoNextQuestion(view)
 
@@ -134,7 +134,7 @@ class GameFragment : Fragment() {
         when (checkedId) {
             R.id.firstAnswerRadioButton -> {
                 answerIndex = 0
-                if (answers[answerIndex] == currentQuestion.trueAnswer) {
+                if (answers[answerIndex] == currentQuestionModel.trueAnswer) {
                     binding.firstAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
@@ -150,7 +150,7 @@ class GameFragment : Fragment() {
             }
             R.id.secondAnswerRadioButton -> {
                 answerIndex = 1
-                if (answers[answerIndex] == currentQuestion.trueAnswer) {
+                if (answers[answerIndex] == currentQuestionModel.trueAnswer) {
                     binding.secondAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
@@ -166,7 +166,7 @@ class GameFragment : Fragment() {
             }
             R.id.thirdAnswerRadioButton -> {
                 answerIndex = 2
-                if (answers[answerIndex] == currentQuestion.trueAnswer) {
+                if (answers[answerIndex] == currentQuestionModel.trueAnswer) {
                     binding.thirdAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
@@ -182,7 +182,7 @@ class GameFragment : Fragment() {
             }
             R.id.fourthAnswerRadioButton -> {
                 answerIndex = 3
-                if (answers[answerIndex] == currentQuestion.trueAnswer) {
+                if (answers[answerIndex] == currentQuestionModel.trueAnswer) {
                     binding.fourthAnswerRadioButton.setBackgroundColor(
                         Color.parseColor("#B7F8C9")
                     )
@@ -197,7 +197,7 @@ class GameFragment : Fragment() {
                 }
             }
         }
-        highlightRightAnswer(currentQuestion.trueAnswer)
+        highlightRightAnswer(currentQuestionModel.trueAnswer)
     }
 
     private fun highlightRightAnswer(answer: String) {
@@ -211,7 +211,7 @@ class GameFragment : Fragment() {
         questionIndex++
         // Advance to the next question
         if (questionIndex < numQuestions) {
-            currentQuestion = questions[questionIndex]
+            currentQuestionModel = questionModels[questionIndex]
             setQuestion()
             binding.invalidateAll()
         } else {
@@ -243,7 +243,7 @@ class GameFragment : Fragment() {
 
     // randomize the questions and set the first question
     private fun randomizeQuestions() {
-        questions.shuffle()
+        questionModels.shuffle()
         questionIndex = 0
         setQuestion()
     }
@@ -251,9 +251,9 @@ class GameFragment : Fragment() {
     // Sets the question and randomizes the answers.  This only changes the data, not the UI.
     // Calling invalidateAll on the FragmentGameBinding updates the data.
     private fun setQuestion() {
-        currentQuestion = questions[questionIndex]
+        currentQuestionModel = questionModels[questionIndex]
         // randomize the answers into a copy of the array
-        answers = currentQuestion.answers.toMutableList()
+        answers = currentQuestionModel.answers.toMutableList()
         // and shuffle them
         answers.shuffle()
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_android_trivia_question, questionIndex + 1, numQuestions)

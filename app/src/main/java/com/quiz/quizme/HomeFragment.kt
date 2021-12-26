@@ -14,10 +14,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.quiz.quizme.data.database.QuizContract
-import com.quiz.quizme.data.model.Question
-import com.quiz.quizme.data.model.ReadQuestion
-import com.quiz.quizme.data.model.SampleData
+import com.quiz.quizme.data.database.DatabaseHelper
+import com.quiz.quizme.data.model.QuestionModel
+import com.quiz.quizme.data.model.ReadQuestionModel
+import com.quiz.quizme.data.database.SampleData
 import com.quiz.quizme.databinding.FragmentHomeStudentBinding
 import com.quiz.quizme.student.GameFragment
 import java.util.*
@@ -70,48 +70,48 @@ class HomeFragment : Fragment(),MyCustomAdapter.RefreshPlease {
     }
 
     fun getQuestionsFromDatabase() : Boolean{
-        var category1  = SampleData.SAMPLE_CATEGORIES.get(0).categoryName
-        var category1_list = ArrayList<Question>()
-        var category2  = SampleData.SAMPLE_CATEGORIES.get(1).categoryName
-        var category2_list = ArrayList<Question>()
-        var category3  = SampleData.SAMPLE_CATEGORIES.get(2).categoryName
-        var category3_list = ArrayList<Question>()
-        var category4  = SampleData.SAMPLE_CATEGORIES.get(3).categoryName
-        var category4_list = ArrayList<Question>()
-        var category5  = SampleData.SAMPLE_CATEGORIES.get(4).categoryName
-        var category5_list = ArrayList<Question>()
-        var category6  = SampleData.SAMPLE_CATEGORIES.get(5).categoryName
-        var category6_list = ArrayList<Question>()
-        var category7  = SampleData.SAMPLE_CATEGORIES.get(6).categoryName
-        var category7_list = ArrayList<Question>()
+        var category1  = SampleData.SAMPLE_CATEGORY_MODELS.get(0).categoryName
+        var category1_list = ArrayList<QuestionModel>()
+        var category2  = SampleData.SAMPLE_CATEGORY_MODELS.get(1).categoryName
+        var category2_list = ArrayList<QuestionModel>()
+        var category3  = SampleData.SAMPLE_CATEGORY_MODELS.get(2).categoryName
+        var category3_list = ArrayList<QuestionModel>()
+        var category4  = SampleData.SAMPLE_CATEGORY_MODELS.get(3).categoryName
+        var category4_list = ArrayList<QuestionModel>()
+        var category5  = SampleData.SAMPLE_CATEGORY_MODELS.get(4).categoryName
+        var category5_list = ArrayList<QuestionModel>()
+        var category6  = SampleData.SAMPLE_CATEGORY_MODELS.get(5).categoryName
+        var category6_list = ArrayList<QuestionModel>()
+        var category7  = SampleData.SAMPLE_CATEGORY_MODELS.get(6).categoryName
+        var category7_list = ArrayList<QuestionModel>()
 
-        val list = QuizContract.DatabaseHelper.getAllQuestionData()
+        val list = DatabaseHelper.getAllQuestionData()
 
         list.forEach { item->
             if(item.category.equals(category1)){
-                category1_list.add(Question(item.question,item.category,item.answers,item.trueAnswer,item.date))
+                category1_list.add(QuestionModel(item.question,item.category,item.answers,item.trueAnswer,item.date))
             }
             else if(item.category.equals(category2)){
-                category2_list.add(Question(item.question,item.category,item.answers,item.trueAnswer,item.date))
+                category2_list.add(QuestionModel(item.question,item.category,item.answers,item.trueAnswer,item.date))
             }
             else if(item.category.equals(category3)){
-                category3_list.add(Question(item.question,item.category,item.answers,item.trueAnswer,item.date))
+                category3_list.add(QuestionModel(item.question,item.category,item.answers,item.trueAnswer,item.date))
             }
             else if(item.category.equals(category4)){
-                category4_list.add(Question(item.question,item.category,item.answers,item.trueAnswer,item.date))
+                category4_list.add(QuestionModel(item.question,item.category,item.answers,item.trueAnswer,item.date))
             }
             else if(item.category.equals(category5)){
-                category5_list.add(Question(item.question,item.category,item.answers,item.trueAnswer,item.date))
+                category5_list.add(QuestionModel(item.question,item.category,item.answers,item.trueAnswer,item.date))
             }
             else if(item.category.equals(category6)){
-                category6_list.add(Question(item.question,item.category,item.answers,item.trueAnswer,item.date))
+                category6_list.add(QuestionModel(item.question,item.category,item.answers,item.trueAnswer,item.date))
             }
             else if(item.category.equals(category7)){
-                category7_list.add(Question(item.question,item.category,item.answers,item.trueAnswer,item.date))
+                category7_list.add(QuestionModel(item.question,item.category,item.answers,item.trueAnswer,item.date))
             }
         }
 
-        var final_list = ArrayList<Question>()
+        var final_list = ArrayList<QuestionModel>()
 
         if(!category1_list.isNullOrEmpty()){
             Collections.shuffle(category1_list)
@@ -180,7 +180,7 @@ class HomeFragment : Fragment(),MyCustomAdapter.RefreshPlease {
         Log.v("FINALE size",final_list.size.toString())
 
         if(final_list.size>0) {
-            GameFragment.questions = final_list
+            GameFragment.questionModels = final_list
             GameFragment.numQuestions = final_list.size
             return true
         }
@@ -202,14 +202,14 @@ class HomeFragment : Fragment(),MyCustomAdapter.RefreshPlease {
         recyclerview.layoutManager = LinearLayoutManager(context)
 
 
-        val list = QuizContract.DatabaseHelper.getAllQuestionData()
+        val list = DatabaseHelper.getAllQuestionData()
 
         Log.v("CHECK",list.toString())
 
         Log.v("CHECK",LoginActivity.Username+" "+ LoginActivity.Fullname )
 
         // ArrayList of class ItemsViewModel
-        val data = ArrayList<ReadQuestion>()
+        val data = ArrayList<ReadQuestionModel>()
 
         // This loop will create 20 Views containing
         // the image with the count of view
@@ -234,7 +234,7 @@ class HomeFragment : Fragment(),MyCustomAdapter.RefreshPlease {
 }
 
 
-class MyCustomAdapter(private val mList: List<ReadQuestion>,private val context: Context,private val layoutInflater: LayoutInflater, private val refreshPlease: RefreshPlease) : RecyclerView.Adapter<MyCustomAdapter.ViewHolder>() {
+class MyCustomAdapter(private val mList: List<ReadQuestionModel>, private val context: Context, private val layoutInflater: LayoutInflater, private val refreshPlease: RefreshPlease) : RecyclerView.Adapter<MyCustomAdapter.ViewHolder>() {
 
 
     interface RefreshPlease{
@@ -302,7 +302,7 @@ class MyCustomAdapter(private val mList: List<ReadQuestion>,private val context:
         }
 
         btn_yes.setOnClickListener {
-            QuizContract.DatabaseHelper.deleteQuestionData(id)
+            DatabaseHelper.deleteQuestionData(id)
             alertDialog.dismiss()
             refreshPlease.onRefresh()
         }

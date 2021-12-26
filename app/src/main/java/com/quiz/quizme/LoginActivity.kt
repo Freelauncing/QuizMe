@@ -11,12 +11,9 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.database.QuizContract
-import com.quiz.quizme.data.model.LoginUser
-import com.quiz.quizme.data.model.SampleData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import java.util.concurrent.Executors
+import com.quiz.quizme.data.database.SampleData
 
 
 class LoginActivity : AppCompatActivity() {
@@ -31,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        QuizContract.DatabaseHelper.initDatabaseInstance(this)
+        DatabaseHelper.initDatabaseInstance(this)
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -87,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkCredentials(username:String,password:String): Boolean {
-        val list =  QuizContract.DatabaseHelper.getAllLoginUserData()
+        val list =  DatabaseHelper.getAllLoginUserData()
         list.forEach { item->
             if(item.username.equals(username) && item.password.equals(password)){
                 Fullname = item.fullname
@@ -100,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        QuizContract.DatabaseHelper.closeDatabase()
+        DatabaseHelper.closeDatabase()
     }
 
 }

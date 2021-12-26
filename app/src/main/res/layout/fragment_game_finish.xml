@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewmodel"
+            type="com.quiz.quizme.student.GameFinishViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gameWonConstraintLayout"
         android:layout_width="match_parent"
@@ -57,6 +64,7 @@
              <LinearLayout
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
+                 android:layout_marginBottom="4dp"
                  android:orientation="vertical">
 
                  <com.github.mikephil.charting.charts.PieChart
@@ -91,8 +99,8 @@
                          android:layout_width="0dp"
                          android:layout_weight="1"
                          android:layout_height="match_parent"
-                         android:text="0"
                          android:gravity="center"
+                         android:hint="0"
                          android:textSize="16sp"
                          android:textColor="@color/colorPrimaryDark"
                          style="@style/my_heading_lg"
@@ -126,8 +134,8 @@
                          android:id="@+id/wrong"
                          android:layout_width="0dp"
                          android:layout_weight="1"
+                         android:hint="0"
                          android:layout_height="match_parent"
-                         android:text="0"
                          android:gravity="center"
                          android:textSize="16sp"
                          android:textColor="@color/colorPrimaryDark"
@@ -163,9 +171,9 @@
                          android:layout_width="0dp"
                          android:layout_weight="1"
                          android:layout_height="match_parent"
-                         android:text="0"
                          android:gravity="center"
                          android:textSize="16sp"
+                         android:hint="0"
                          android:textColor="@color/colorPrimaryDark"
                          style="@style/my_heading_lg"
                          app:layout_constraintBottom_toTopOf="@+id/youWinImage"

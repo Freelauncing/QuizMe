@@ -10,15 +10,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.database.QuizContract
-import com.quiz.quizme.data.model.LoginUser
+import com.quiz.quizme.data.model.LoginUserModel
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        QuizContract.DatabaseHelper.initDatabaseInstance(this)
+        DatabaseHelper.initDatabaseInstance(this)
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -60,14 +61,14 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun createAccount(fullname: String, username: String, password: String): Boolean {
-        val list =  QuizContract.DatabaseHelper.getAllLoginUserData()
+        val list =  DatabaseHelper.getAllLoginUserData()
         list.forEach { item->
             if(item.username.equals(username)) {
                 return false
             }
         }
-        val loginUser = LoginUser(username,fullname,password)
-        if(null != (QuizContract.DatabaseHelper.insertLoginUserData(loginUser))){
+        val loginUser = LoginUserModel(username,fullname,password)
+        if(null != (DatabaseHelper.insertLoginUserData(loginUser))){
             return true
         }
         return true
@@ -75,7 +76,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        QuizContract.DatabaseHelper.closeDatabase()
+        DatabaseHelper.closeDatabase()
     }
 
 }

@@ -1,10 +1,6 @@
 package com.quiz.quizme.data.model
 
-import android.annotation.SuppressLint
-
-
-@SuppressLint("ParcelCreator")
-data class StudentTest(
+data class StudentTestModel(
     val username: String,
     val fullname: String,
     val score: String,

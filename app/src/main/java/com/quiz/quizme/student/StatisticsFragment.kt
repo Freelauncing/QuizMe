@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.quizme.LoginActivity
 import com.quiz.quizme.R
+import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.database.QuizContract
-import com.quiz.quizme.data.model.StudentTest
-import org.w3c.dom.Text
+import com.quiz.quizme.data.model.StudentTestModel
 
 
 class StatisticsFragment : Fragment() {
@@ -38,14 +38,14 @@ class StatisticsFragment : Fragment() {
         recyclerview.layoutManager = LinearLayoutManager(context)
 
 
-        val list = QuizContract.DatabaseHelper.getAllStudentData()
+        val list = DatabaseHelper.getAllStudentData()
 
         Log.v("CHECK",list.toString())
 
         Log.v("CHECK",LoginActivity.Username+" "+ LoginActivity.Fullname )
 
         // ArrayList of class ItemsViewModel
-        val data = ArrayList<StudentTest>()
+        val data = ArrayList<StudentTestModel>()
 
         // This loop will create 20 Views containing
         // the image with the count of view
@@ -66,7 +66,7 @@ class StatisticsFragment : Fragment() {
 
 
 
-class CustomAdapter(private val mList: List<StudentTest>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val mList: List<StudentTestModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

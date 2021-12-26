@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.quiz.quizme.R
+import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.database.QuizContract
-import com.quiz.quizme.data.model.Question
+import com.quiz.quizme.data.model.QuestionModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,7 +68,7 @@ class AddNewQuestionFragment : Fragment() , AdapterView.OnItemSelectedListener{
             Toast.makeText(requireContext(),"Category Not Selected",Toast.LENGTH_SHORT).show()
         }else {
             var check =false
-            val list = QuizContract.DatabaseHelper.getAllQuestionData()
+            val list = DatabaseHelper.getAllQuestionData()
             list.forEach {
                 if(it.question.equals(Question)){
                     check =true
@@ -78,7 +79,7 @@ class AddNewQuestionFragment : Fragment() , AdapterView.OnItemSelectedListener{
                 val currentDate = sdf.format(Date())
 
                 val trueAnswer = getTrueAnswer(radioGroup.checkedRadioButtonId)
-                val question = Question(
+                val question = QuestionModel(
                     Question,
                     selectedCategory,
                     listOf(
@@ -88,7 +89,7 @@ class AddNewQuestionFragment : Fragment() , AdapterView.OnItemSelectedListener{
                     currentDate
                 )
 
-                val id = QuizContract.DatabaseHelper.insertQuestionsData(question)
+                val id = DatabaseHelper.insertQuestionsData(question)
                 if (id != null) {
                     Toast.makeText(requireContext(), "Question Added Successfully !!!", Toast.LENGTH_LONG).show()
                     resetThings(view)
