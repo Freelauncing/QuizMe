@@ -24,4 +24,15 @@
     <string name="sharing_not_available">Sharing Not Available</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="question_category_array">
+        <item>Select a Category</item>
+        <item>Number – number and place value</item>
+        <item>Number – addition and subtraction</item>
+        <item>Number – multiplication and division</item>
+        <item>Number – fractions</item>
+        <item>Measurement</item>
+        <item>Geometry – properties of shapes</item>
+        <item>Geometry – position and direction</item>
+    </string-array>
 </resources>

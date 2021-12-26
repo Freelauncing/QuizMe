@@ -156,12 +156,12 @@ class QuizContract{
                     if (cursor.moveToFirst()) {
                         do {
                             val student = StudentTest(
-                                cur.getString(0),
                                 cur.getString(1),
                                 cur.getString(2),
                                 cur.getString(3),
                                 cur.getString(4),
-                                cur.getString(5)
+                                cur.getString(5),
+                                cur.getString(6)
                             )
                             data.add(student)
 
@@ -212,14 +212,14 @@ class QuizContract{
                         do {
 
                             val question = Question(
-                                cur.getString(0),
                                 cur.getString(1),
-                                listOf<String>(cur.getString(2),
-                                    cur.getString(3),
+                                cur.getString(2),
+                                listOf<String>(cur.getString(3),
                                     cur.getString(4),
-                                    cur.getString(5)),
-                                cur.getString(6),
-                                cur.getString(7)
+                                    cur.getString(5),
+                                    cur.getString(6)),
+                                cur.getString(7),
+                                cur.getString(8)
                             )
                             data.add(question)
 

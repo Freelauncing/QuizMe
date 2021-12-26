@@ -48,25 +48,30 @@ class LoginActivity : AppCompatActivity() {
         signIn.setOnClickListener {
            Log.v("Kaloo",username.text.toString())
 
-            if(username.text.isNullOrEmpty() || password.text.isNullOrEmpty()){
-                Toast.makeText(this,"Credentials Missing",Toast.LENGTH_SHORT).show()
-            }else {
-                if(checkCredentials(username.text.toString(),password.text.toString())) {
-                    val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
-                    if (username.text.toString().equals("a")) {
-                        myIntent.putExtra("Role", "admin")
-                        Role = "admin"
-                    } else {
-                        myIntent.putExtra("Role", "student")
-                        Role = "student"
-                    }
-                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    this@LoginActivity.startActivity(myIntent)
-                    Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(this,"Account Not Found!",Toast.LENGTH_SHORT).show()
-                }
-            }
+            val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
+            myIntent.putExtra("Role", "admin")
+            Role = "admin"
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            this@LoginActivity.startActivity(myIntent)
+//            if(username.text.isNullOrEmpty() || password.text.isNullOrEmpty()){
+//                Toast.makeText(this,"Credentials Missing",Toast.LENGTH_SHORT).show()
+//            }else {
+//                if(checkCredentials(username.text.toString(),password.text.toString())) {
+//                    val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
+//                    if (username.text.toString().equals("a")) {
+//                        myIntent.putExtra("Role", "admin")
+//                        Role = "admin"
+//                    } else {
+//                        myIntent.putExtra("Role", "student")
+//                        Role = "student"
+//                    }
+//                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    this@LoginActivity.startActivity(myIntent)
+//                    Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show()
+//                }else{
+//                    Toast.makeText(this,"Account Not Found!",Toast.LENGTH_SHORT).show()
+//                }
+//            }
         }
 
         val textView7 = findViewById<TextView>(R.id.textView7)

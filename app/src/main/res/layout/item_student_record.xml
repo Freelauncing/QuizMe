@@ -18,7 +18,6 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="4dp"
             android:clickable="true"
-            android:onClick="@{() -> viewmodel.openTask(product.product_id)}"
             android:elevation="3dp"
             app:cardCornerRadius="4dp"
             android:foreground="?android:attr/selectableItemBackground"
@@ -31,8 +30,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:id="@+id/product_image_card"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:layout_marginStart="12dp"
@@ -41,22 +42,30 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginRight="12dp"
                     android:layout_marginBottom="12dp"
-                    android:clickable="true"
-                    android:elevation="3dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/product_image"
+                    <TextView
+                        style="@style/my_heading_md"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Grade"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/grade"
+                        android:layout_weight="1"
+                        style="@style/my_heading_md"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        />
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_toRightOf="@+id/product_image_card"
@@ -66,18 +75,36 @@
                     android:layout_marginTop="12dp"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:textColor="@color/text_primary"
-                        android:hint="Title"
-                        app:autoSizeTextType="uniform"
-                        style="@style/my_heading_md"
-                        android:textAllCaps="true"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         app:layout_constraintBottom_toTopOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textColor="@color/text_primary"
+                            android:hint="Score: "
+                            android:gravity="center"
+                            style="@style/my_heading_md"
+                            android:textAllCaps="true"
+                            />
+                        <TextView
+                            android:id="@+id/score"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"                            android:layout_height="30dp"
+                            android:textColor="@color/text_primary"
+                            android:hint="Title"
+                            android:gravity="center|left"
+                            style="@style/my_heading_md"
+                            android:textAllCaps="true"
+                            />
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -88,18 +115,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Qty: "
+                            android:text="Total Score: "
                             android:textColor="@color/colorGrey"
-                            android:hint="Qty"
+                            android:hint=""
                             style="@style/my_heading_sm"
                             app:layout_constraintBottom_toTopOf="@+id/textView4"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/totalScore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorGrey"
+                            android:layout_weight="1"
+                            android:gravity="left"
                             android:hint="0 items"
                             style="@style/my_heading_sm"
                             app:layout_constraintBottom_toTopOf="@+id/textView4"
@@ -114,7 +144,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rs: "
+                            android:text="DateTime: "
                             android:textColor="@color/colorGrey"
                             android:hint="Qty"
                             style="@style/my_heading_sm"
@@ -123,6 +153,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorGrey"

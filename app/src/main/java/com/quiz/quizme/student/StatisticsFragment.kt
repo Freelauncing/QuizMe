@@ -1,6 +1,7 @@
 package com.quiz.quizme.student
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.quiz.quizme.LoginActivity
 import com.quiz.quizme.R
+import com.quiz.quizme.data.database.QuizContract
+import com.quiz.quizme.data.model.StudentTest
+import org.w3c.dom.Text
 
 
 class StatisticsFragment : Fragment() {
@@ -19,36 +24,49 @@ class StatisticsFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_statistics, container, false)
+
+        // Inflate the layout for this fragment
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // getting the recyclerview by its id
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerview)
 
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(context)
 
+
+        val list = QuizContract.DatabaseHelper.getAllStudentData()
+
+        Log.v("CHECK",list.toString())
+
+        Log.v("CHECK",LoginActivity.Username+" "+ LoginActivity.Fullname )
+
         // ArrayList of class ItemsViewModel
-        val data = ArrayList<ItemsViewModel>()
+        val data = ArrayList<StudentTest>()
 
         // This loop will create 20 Views containing
         // the image with the count of view
-        for (i in 1..20) {
-            data.add(ItemsViewModel(R.drawable.ic_about, "Item " + i))
+        list.forEach { item->
+            if(item.username.equals(LoginActivity.Username) && item.fullname.equals(LoginActivity.Fullname)){
+                data.add(item)
+            }
         }
 
+        Log.v("CHECK",data.toString())
         // This will pass the ArrayList to our Adapter
         val adapter = CustomAdapter(data)
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
-        // Inflate the layout for this fragment
-        return view
     }
-
 }
 
-data class ItemsViewModel(val image: Int, val text: String) {
-}
 
-class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+class CustomAdapter(private val mList: List<StudentTest>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -66,10 +84,11 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
         val ItemsViewModel = mList[position]
 
         // sets the image to the imageview from our itemHolder class
-       // holder.imageView.setImageResource(ItemsViewModel.image)
+        holder.grade_.setText(ItemsViewModel.grade)
+        holder.score_.setText(ItemsViewModel.score)
+        holder.totalScore_.setText(ItemsViewModel.totalscore)
+        holder.date_.setText(ItemsViewModel.date)
 
-        // sets the text to the textview from our itemHolder class
-      //  holder.textView.text = ItemsViewModel.text
 
     }
 
@@ -80,7 +99,9 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-//       val imageView: ImageView = itemView.findViewById(R.id.imageview)
-      //  val textView: TextView = itemView.findViewById(R.id.textView)
+        val grade_: TextView = itemView.findViewById(R.id.grade)
+        val score_: TextView = itemView.findViewById(R.id.score)
+        val totalScore_: TextView = itemView.findViewById(R.id.totalScore)
+        val date_: TextView = itemView.findViewById(R.id.date)
     }
 }

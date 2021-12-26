@@ -13,9 +13,10 @@
         tools:context=".student.StatisticsFragment">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="8dp"
+            android:layout_marginBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
