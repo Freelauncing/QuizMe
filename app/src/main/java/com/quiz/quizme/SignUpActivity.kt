@@ -69,8 +69,11 @@ class SignUpActivity : AppCompatActivity() {
         }
         val loginUser = LoginUserModel(username,fullname,password)
         if(null != (DatabaseHelper.insertLoginUserData(loginUser))){
+            LoginActivity.Fullname = fullname
+            LoginActivity.Username = username
             return true
         }
+
         return true
     }
 
