@@ -1,4 +1,4 @@
-package com.quiz.quizme.student
+package com.quiz.quizme.student.game
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.charts.PieChart
@@ -17,7 +15,6 @@ import com.github.mikephil.charting.data.PieData
 import com.quiz.quizme.LoginActivity
 import com.quiz.quizme.R
 import com.quiz.quizme.data.model.StudentTestModel
-import com.quiz.quizme.databinding.FragmentGameFinishBinding
 import java.text.SimpleDateFormat
 import java.util.*
 

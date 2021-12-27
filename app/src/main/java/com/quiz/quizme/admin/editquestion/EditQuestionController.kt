@@ -1,4 +1,4 @@
-package com.quiz.quizme.admin
+package com.quiz.quizme.admin.editquestion
 
 import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.model.QuestionModel
@@ -48,7 +48,8 @@ class EditQuestionController(var list:MutableList<ReadQuestionModel>, var editQu
 
         val id = DatabaseHelper.updateQuestionData(newQuestion,questionId)
         if (id != null) {
-           editQuestionFragment.showToast("Question Updated Successfully !!!")
+            editQuestionFragment.showToast("Question Updated Successfully !!!")
+            list = DatabaseHelper.getAllQuestionData()
         }
     }
 }

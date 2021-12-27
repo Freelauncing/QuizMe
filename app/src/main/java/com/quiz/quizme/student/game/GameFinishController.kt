@@ -1,4 +1,4 @@
-package com.quiz.quizme.student
+package com.quiz.quizme.student.game
 
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet

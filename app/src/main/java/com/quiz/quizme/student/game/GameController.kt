@@ -1,6 +1,7 @@
-package com.quiz.quizme.student
+package com.quiz.quizme.student.game
 
 import com.quiz.quizme.data.model.QuestionModel
+import com.quiz.quizme.student.game.GameFragment
 
 private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
 private val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 400)

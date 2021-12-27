@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.quiz.quizme.student.GameFragment"
+        android:name="com.quiz.quizme.student.game.GameFragment"
         tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_gameFragment_to_gameWonFragment"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameWonFragment"
-        android:name="com.quiz.quizme.student.GameFinishFragment"
+        android:name="com.quiz.quizme.student.game.GameFinishFragment"
         android:label="Final Report"
         tools:layout="@layout/fragment_game_finish">
         <action
@@ -44,12 +44,12 @@
         tools:layout="@layout/fragment_rules" />
     <fragment
         android:id="@+id/statisticsFragment"
-        android:name="com.quiz.quizme.student.StatisticsFragment"
+        android:name="com.quiz.quizme.student.statistics.StatisticsFragment"
         android:label="Statistics"
         tools:layout="@layout/fragment_statistics" />
     <fragment
         android:id="@+id/addNewQuestionFragment"
-        android:name="com.quiz.quizme.admin.AddNewQuestionFragment"
+        android:name="com.quiz.quizme.admin.newquestion.AddNewQuestionFragment"
         android:label="Add New Question"
         tools:layout="@layout/fragment_add_new_question" />
     <fragment
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/editQuestionFragment"
-        android:name="com.quiz.quizme.admin.EditQuestionFragment"
+        android:name="com.quiz.quizme.admin.editquestion.EditQuestionFragment"
         android:label="Edit Question" >
         <argument
             android:name="questionID"

@@ -19,7 +19,7 @@ import com.quiz.quizme.data.model.QuestionModel
 import com.quiz.quizme.data.model.ReadQuestionModel
 import com.quiz.quizme.data.database.SampleData
 import com.quiz.quizme.databinding.FragmentHomeStudentBinding
-import com.quiz.quizme.student.GameFragment
+import com.quiz.quizme.student.game.GameFragment
 import java.util.*
 import kotlin.collections.ArrayList
 

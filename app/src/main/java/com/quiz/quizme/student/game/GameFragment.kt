@@ -1,4 +1,4 @@
-package com.quiz.quizme.student
+package com.quiz.quizme.student.game
 
 import android.graphics.Color
 import android.os.Build
@@ -215,7 +215,7 @@ class GameFragment : Fragment() {
     }
 
     fun moveToFinish(score:Int) {
-        Log.v("CKK","Before score="+score + " question="+numQuestions)
+        Log.v("CKK","Before score="+score + " question="+ numQuestions)
         // We've won!  Navigate to the gameWonFragment.
         findNavController().navigate(
             GameFragmentDirections.actionGameFragmentToGameWonFragment(

@@ -1,4 +1,4 @@
-package com.quiz.quizme.admin
+package com.quiz.quizme.admin.newquestion
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

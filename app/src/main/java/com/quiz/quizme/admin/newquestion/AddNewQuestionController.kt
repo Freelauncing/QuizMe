@@ -1,4 +1,4 @@
-package com.quiz.quizme.admin
+package com.quiz.quizme.admin.newquestion
 
 import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.model.QuestionModel

@@ -1,4 +1,4 @@
-package com.quiz.quizme.student
+package com.quiz.quizme.student.statistics
 
 import android.view.LayoutInflater
 import android.view.View

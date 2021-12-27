@@ -1,4 +1,4 @@
-package com.quiz.quizme.admin
+package com.quiz.quizme.admin.editquestion
 
 import android.os.Bundle
 import android.util.Log

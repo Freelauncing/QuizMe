@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".student.GameFragment">
+    tools:context=".student.game.GameFragment">
 
     <data>
         <variable
             name="game"
-            type="com.quiz.quizme.student.GameFragment" />
+            type="com.quiz.quizme.student.game.GameFragment" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 <RadioButton
                     android:id="@+id/firstAnswerRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
                     app:autoSizeTextType="uniform"
                     android:buttonTint="@color/colorPrimary"
@@ -61,7 +61,7 @@
                 <RadioButton
                     android:id="@+id/secondAnswerRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
                     app:autoSizeTextType="uniform"
                     android:buttonTint="@color/colorPrimary"
@@ -71,7 +71,7 @@
                 <RadioButton
                     android:id="@+id/thirdAnswerRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
                     app:autoSizeTextType="uniform"
                     android:buttonTint="@color/colorPrimary"
@@ -81,7 +81,7 @@
                 <RadioButton
                     android:id="@+id/fourthAnswerRadioButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     app:autoSizeTextType="uniform"
                     android:buttonTint="@color/colorPrimary"
                     android:textSize="@dimen/answer_text_size"

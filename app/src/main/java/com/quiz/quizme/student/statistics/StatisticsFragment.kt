@@ -1,4 +1,4 @@
-package com.quiz.quizme.student
+package com.quiz.quizme.student.statistics
 
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.quiz.quizme.LoginActivity
 import com.quiz.quizme.R
 import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.model.StudentTestModel
+import com.quiz.quizme.student.statistics.StatisticsAdapter
+import com.quiz.quizme.student.statistics.StatisticsController
 
 
 class StatisticsFragment : Fragment() {

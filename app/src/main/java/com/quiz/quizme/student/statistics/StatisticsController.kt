@@ -1,4 +1,4 @@
-package com.quiz.quizme.student
+package com.quiz.quizme.student.statistics
 
 import com.quiz.quizme.LoginActivity
 import com.quiz.quizme.data.model.StudentTestModel
