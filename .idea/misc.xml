@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_add_new_question.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_edit_question.xml" value="0.20425724637681159" />
         <entry key="app/src/main/res/layout/fragment_game.xml" value="0.20969202898550723" />
+        <entry key="app/src/main/res/layout/fragment_game_finish.xml" value="0.18614130434782608" />
         <entry key="app/src/main/res/layout/fragment_game_over.xml" value="0.20969202898550723" />
         <entry key="app/src/main/res/layout/fragment_game_won.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.20969202898550723" />

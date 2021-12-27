@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <data>
-        <import type="android.view.View" />
-        <variable
-            name="viewmodel"
-            type="com.quiz.quizme.student.GameFinishViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gameWonConstraintLayout"
         android:layout_width="match_parent"

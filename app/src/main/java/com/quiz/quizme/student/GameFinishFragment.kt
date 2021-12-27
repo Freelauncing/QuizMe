@@ -3,64 +3,65 @@ package com.quiz.quizme.student
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
+import com.quiz.quizme.LoginActivity
 import com.quiz.quizme.R
+import com.quiz.quizme.data.model.StudentTestModel
 import com.quiz.quizme.databinding.FragmentGameFinishBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class GameFinishFragment : Fragment() {
 
-    private lateinit var viewDataBinding: FragmentGameFinishBinding
+    val currentDate = SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(Date())
 
     private val args: GameFinishFragmentArgs by navArgs()
 
-    private val viewModel by viewModels<GameFinishViewModel>()
+    private lateinit var myView: View
+
+    private lateinit var controller: GameFinishController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_game_finish, container, false)
-
-        viewDataBinding = FragmentGameFinishBinding.bind(root).apply {
-            this.viewmodel = viewmodel
-        }
+        myView = inflater.inflate(R.layout.fragment_game_finish, container, false)
 
         setHasOptionsMenu(true)
 
-        return viewDataBinding.root
+        return myView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set the lifecycle owner to the lifecycle of the view
-        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
-
-        viewModel.start(args.numCorrect,args.numQuestions)
-
-        viewDataBinding.nextMatchButton.setOnClickListener{
-            it.findNavController().navigate(GameFinishFragmentDirections.actionGameWonFragmentToGameFragment())
+        myView.findViewById<Button>(R.id.nextMatchButton).setOnClickListener {
+            findNavController().navigate(GameFinishFragmentDirections.actionGameWonFragmentToGameFragment())
         }
-        viewModel.showGraphData.observe(this, {
-            showGraphDetails(it)
-        })
-        viewModel.score.observe(this, {
-            viewDataBinding.correct.text = it
-        })
-        viewModel.incorrectScore.observe(this, {
-            viewDataBinding.wrong.text = it
-        })
-        viewModel.totalScore.observe(this, {
-            viewDataBinding.total.text = it
-        })
+
+        var studentTestModel = StudentTestModel(
+            LoginActivity.Username,
+            LoginActivity.Fullname,
+            args.numCorrect.toString(),
+            args.numQuestions.toString(),
+            args.numCorrect.toString()+" G ",
+            currentDate)
+
+        controller = GameFinishController(studentTestModel,this)
+
+        controller.showSaveAndReport()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -72,7 +73,6 @@ class GameFinishFragment : Fragment() {
     }
 
     private fun getShareIntent() : Intent {
-        var args = GameFinishFragmentArgs.fromBundle(requireArguments())
         return ShareCompat.IntentBuilder.from(requireActivity())
             .setText(getString(R.string.share_success_text,args.numCorrect,args.numQuestions))
             .setType("text/plain")
@@ -91,9 +91,18 @@ class GameFinishFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun showGraphAndReport(score: String, incorrect: String, total: String,pieData: PieData) {
+        myView.findViewById<TextView>(R.id.correct).setText(score)
+        myView.findViewById<TextView>(R.id.wrong).setText(incorrect)
+        myView.findViewById<TextView>(R.id.total).setText(total)
+
+        showGraphDetails(pieData)
+    }
+
+
     fun showGraphDetails(pieData: PieData) {
 
-        var pieChart = viewDataBinding.pieChart
+        var pieChart = myView.findViewById<PieChart>(R.id.pieChart)
 
         pieChart.data = pieData
 
@@ -106,5 +115,6 @@ class GameFinishFragment : Fragment() {
         pieChart.animateXY(1000,1000);
         pieChart.invalidate();
     }
+
 
 }
