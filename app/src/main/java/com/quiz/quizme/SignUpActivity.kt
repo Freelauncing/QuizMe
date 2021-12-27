@@ -4,17 +4,22 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.database.QuizContract
 import com.quiz.quizme.data.model.LoginUserModel
 
 class SignUpActivity : AppCompatActivity() {
+
+    private lateinit var btnSignUp:Button
+    private lateinit var progressBar2: ProgressBar
+    private lateinit var username:EditText
+    private lateinit var fullname:EditText
+    private lateinit var password:EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -31,22 +36,33 @@ class SignUpActivity : AppCompatActivity() {
             )
         }
 
-        val fullname = findViewById<EditText>(R.id.tbFullName)
-        val username = findViewById<EditText>(R.id.tbUsername)
-        val password = findViewById<EditText>(R.id.tbPassword)
+        fullname = findViewById(R.id.tbFullName)
+        username = findViewById(R.id.tbUsername)
+        password = findViewById(R.id.tbPassword)
+        btnSignUp = findViewById(R.id.btnSignUp)
 
-        val btnSignUp = findViewById<Button>(R.id.btnSignUp)
+        progressBar2 = findViewById(R.id.progressBar2)
+
+        fullname.setText("")
+        username.setText("")
+        password.setText("")
+
+        onThings()
+
         btnSignUp.setOnClickListener {
             if(fullname.text.isNullOrEmpty() || username.text.isNullOrEmpty() || password.text.isNullOrEmpty()){
-                Toast.makeText(this,"Fields Missing", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Some Fields are Missing", Toast.LENGTH_SHORT).show()
             }else {
-                if(createAccount(fullname.text.toString(),username.text.toString(),password.text.toString())) {
+                offThings()
+                if(createAccount(fullname.text.toString().trim(), username.text.toString().trim(), password.text.toString().trim())) {
                     val myIntent = Intent(this@SignUpActivity, MainActivity::class.java)
                     myIntent.putExtra("Role", "student")
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     this@SignUpActivity.startActivity(myIntent)
-                    Toast.makeText(this,"Account Created!",Toast.LENGTH_SHORT).show()
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+                    Toast.makeText(this,"Welcome Account Created!",Toast.LENGTH_SHORT).show()
                 }else{
+                    onThings()
                     Toast.makeText(this,"Username Already registered!",Toast.LENGTH_SHORT).show()
                 }
             }
@@ -80,6 +96,18 @@ class SignUpActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         DatabaseHelper.closeDatabase()
+    }
+
+    fun onThings(){
+        btnSignUp.isEnabled = true
+        btnSignUp.isClickable = true
+        progressBar2.visibility = View.GONE
+    }
+
+    fun offThings(){
+        btnSignUp.isEnabled = false
+        btnSignUp.isClickable = false
+        progressBar2.visibility = View.VISIBLE
     }
 
 }

@@ -5,18 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Button
 import android.content.Intent
 import android.util.Log
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import com.quiz.quizme.data.database.DatabaseHelper
 import com.quiz.quizme.data.database.QuizContract
 import com.quiz.quizme.data.database.SampleData
 
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var submitBtn:Button
+    private lateinit var progressBar: ProgressBar
+    private lateinit var username:EditText
+    private lateinit var password:EditText
 
     companion object {
         var Role: String = ""
@@ -30,6 +33,17 @@ class LoginActivity : AppCompatActivity() {
 
         DatabaseHelper.initDatabaseInstance(this)
 
+        submitBtn = findViewById(R.id.button)
+        username = findViewById(R.id.editTextTextPersonName)
+        password = findViewById(R.id.edtTextPassword)
+
+        progressBar = findViewById(R.id.progressBar)
+
+        onThings()
+
+        username.setText("")
+        password.setText("")
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -39,24 +53,14 @@ class LoginActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        val username = findViewById<EditText>(R.id.editTextTextPersonName)
-        val password = findViewById<EditText>(R.id.edtTextPassword)
 
-        val signIn = findViewById<Button>(R.id.button)
-        signIn.setOnClickListener {
-           Log.v("Kaloo",username.text.toString())
+        submitBtn.setOnClickListener {
 
-//            val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
-//            myIntent.putExtra("Role", "student")
-//            Role = "student"
-//            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-//            this@LoginActivity.startActivity(myIntent)
-//            Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show()
-//            findViewById<EditText>(R.id.editTextTextPersonName).setText("")
-//            findViewById<EditText>(R.id.edtTextPassword).setText("")
             if(username.text.isNullOrEmpty() || password.text.isNullOrEmpty()){
                 Toast.makeText(this,"Credentials Missing",Toast.LENGTH_SHORT).show()
             }else {
+                offThings()
+
                 if(username.text.toString().trim().equals(SampleData.SAMPLE_ADMIN)
                     && password.text.toString().equals(SampleData.SAMPLE_ADMIN_PASSWORD)){
                     val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -64,8 +68,8 @@ class LoginActivity : AppCompatActivity() {
                     Role = "admin"
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     this@LoginActivity.startActivity(myIntent)
-                    findViewById<EditText>(R.id.editTextTextPersonName).setText("")
-                    findViewById<EditText>(R.id.edtTextPassword).setText("")
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+
                 }
                 else if(checkCredentials(username.text.toString().trim(),password.text.toString().trim())) {
                     val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -73,10 +77,12 @@ class LoginActivity : AppCompatActivity() {
                     Role = "student"
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     this@LoginActivity.startActivity(myIntent)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+
                     Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show()
-                    findViewById<EditText>(R.id.editTextTextPersonName).setText("")
-                    findViewById<EditText>(R.id.edtTextPassword).setText("")
+
                 }else{
+                    onThings()
                     Toast.makeText(this,"Account Not Found!",Toast.LENGTH_SHORT).show()
                 }
             }
@@ -106,6 +112,18 @@ class LoginActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         DatabaseHelper.closeDatabase()
+    }
+
+    fun onThings(){
+        submitBtn.isEnabled = true
+        submitBtn.isClickable = true
+        progressBar.visibility = View.GONE
+    }
+
+    fun offThings(){
+        submitBtn.isEnabled = false
+        submitBtn.isClickable = false
+        progressBar.visibility = View.VISIBLE
     }
 
 }
