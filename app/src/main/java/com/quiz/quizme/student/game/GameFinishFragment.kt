@@ -50,12 +50,18 @@ class GameFinishFragment : Fragment() {
 
         Log.v("CKK",args.numCorrect.toString())
         Log.v("CKK",args.numQuestions.toString())
+
+        val r1  = args.numCorrect.toString()
+        val r2 = args.numQuestions.toString()
+        val res = r1.toDouble().div(r2.toDouble())
+        val grade = res * 100.0
+
         var studentTestModel = StudentTestModel(
             LoginActivity.Username,
             LoginActivity.Fullname,
             args.numCorrect.toString(),
             args.numQuestions.toString(),
-            args.numCorrect.toString()+" G ",
+            grade.toString()+" % ",
             currentDate)
 
         controller = GameFinishController(studentTestModel,this)

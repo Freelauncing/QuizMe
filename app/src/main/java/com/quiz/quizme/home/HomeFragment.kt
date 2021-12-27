@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.ui.text.toUpperCase
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -44,6 +46,8 @@ class HomeFragment : Fragment(), HomeAdapter.RefreshPlease {
         }else {
 
             myView_student = inflater.inflate( R.layout.fragment_home_student,container,false)
+
+            myView_student.findViewById<TextView>(R.id.fullname).setText("Welcome Back, "+LoginActivity.Fullname.toUpperCase())
 
             return myView_student
         }
@@ -98,6 +102,11 @@ class HomeFragment : Fragment(), HomeAdapter.RefreshPlease {
 
         Log.v("CHECK",LoginActivity.Username+" "+ LoginActivity.Fullname )
 
+        if(list.size > 0){
+            myView_admin.findViewById<TextView>(R.id.emptytext).visibility = View.GONE
+        }else{
+            myView_admin.findViewById<TextView>(R.id.emptytext).visibility = View.VISIBLE
+        }
         // This will pass the ArrayList to our Adapter
         val adapter = HomeAdapter(list.reversed(),requireContext(),this.layoutInflater,this)
 

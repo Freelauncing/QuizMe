@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +54,11 @@ class StatisticsFragment : Fragment() {
 
     fun showInAdapter(list: List<StudentTestModel>){
         Log.v("CHECK",list.toString())
+        if(list.size > 0){
+            myView.findViewById<TextView>(R.id.emptytext).visibility = View.GONE
+        }else{
+            myView.findViewById<TextView>(R.id.emptytext).visibility = View.VISIBLE
+        }
         // This will pass the ArrayList to our Adapter
         val adapter = StatisticsAdapter(list)
         // Setting the Adapter with the recyclerview
