@@ -46,10 +46,18 @@ class LoginActivity : AppCompatActivity() {
         signIn.setOnClickListener {
            Log.v("Kaloo",username.text.toString())
 
+//            val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
+//            myIntent.putExtra("Role", "student")
+//            Role = "student"
+//            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//            this@LoginActivity.startActivity(myIntent)
+//            Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show()
+//            findViewById<EditText>(R.id.editTextTextPersonName).setText("")
+//            findViewById<EditText>(R.id.edtTextPassword).setText("")
             if(username.text.isNullOrEmpty() || password.text.isNullOrEmpty()){
                 Toast.makeText(this,"Credentials Missing",Toast.LENGTH_SHORT).show()
             }else {
-                if(username.text.toString().equals(SampleData.SAMPLE_ADMIN)
+                if(username.text.toString().trim().equals(SampleData.SAMPLE_ADMIN)
                     && password.text.toString().equals(SampleData.SAMPLE_ADMIN_PASSWORD)){
                     val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     myIntent.putExtra("Role", "admin")
@@ -59,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
                     findViewById<EditText>(R.id.editTextTextPersonName).setText("")
                     findViewById<EditText>(R.id.edtTextPassword).setText("")
                 }
-                else if(checkCredentials(username.text.toString(),password.text.toString())) {
+                else if(checkCredentials(username.text.toString().trim(),password.text.toString().trim())) {
                     val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     myIntent.putExtra("Role", "student")
                     Role = "student"

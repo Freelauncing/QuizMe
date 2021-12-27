@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/gameWonFragment"
         android:name="com.quiz.quizme.student.GameFinishFragment"
-        android:label="@string/congratulations"
+        android:label="Final Report"
         tools:layout="@layout/fragment_game_finish">
         <action
             android:id="@+id/action_gameWonFragment_to_gameFragment"

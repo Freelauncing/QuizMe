@@ -2,6 +2,7 @@ package com.quiz.quizme.student
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
@@ -50,6 +51,8 @@ class GameFinishFragment : Fragment() {
             findNavController().navigate(GameFinishFragmentDirections.actionGameWonFragmentToGameFragment())
         }
 
+        Log.v("CKK",args.numCorrect.toString())
+        Log.v("CKK",args.numQuestions.toString())
         var studentTestModel = StudentTestModel(
             LoginActivity.Username,
             LoginActivity.Fullname,
