@@ -5,8 +5,9 @@
     <string name="position">Position</string>
     <string name="select_an_avatar">Select an Avatar</string>
     <string name="android_trivia">Quiz Me</string>
-    <string name="about_text">Quiz Me will help remind you of important concepts you have learned and will learn in Mathematics.\n\n These questions will help you to sharp your mathematics skills to participate in International Championship</string>
-    <string name="rules_text">Select the answer from the options given. Each time you get an answer correct, you advance to the next question.\n\nIf you get the answer wrong, your game ends! You can return to the title screen using up or back from within the game screen, and this will also end your game.</string>
+    <string name="about_text">Quiz Me will help remind you of important concepts you have learned and will learn in Mathematics.\n\nThese questions will help you to sharp your mathematics skills to participate in International Championship\n\n Happy Playing!\n\n\n</string>
+    <string name="rules_text">Select the answer from the options given. Each time you get an answer correct, you advance to the next question. And Each question contains 1 point.\n\nIf you get the answer wrong, 1 point will be deducted from the score! After the whole quiz
+        completed You will be provided with the details of the quiz with graph within the game screen, and this will also end your game. \n\n Happy Playing!\n\n\n</string>
     <string name="rules">Rules</string>
     <string name="home">Home</string>
     <string name="about">About</string>
