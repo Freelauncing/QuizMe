@@ -10,13 +10,12 @@ import android.widget.*
 import androidx.navigation.fragment.navArgs
 import com.quiz.quizme.R
 import com.quiz.quizme.data.database.DatabaseHelper
-import com.quiz.quizme.data.database.QuizContract
-import com.quiz.quizme.data.model.QuestionModel
-import java.text.SimpleDateFormat
-import java.util.*
 
 class EditQuestionFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
+    private lateinit var controller: EditQuestionController
+
+    private lateinit var myView: View
 
     private val args: EditQuestionFragmentArgs by navArgs()
 
@@ -34,84 +33,52 @@ class EditQuestionFragment : Fragment(), AdapterView.OnItemSelectedListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_edit_question, container, false)
+        myView =  inflater.inflate(R.layout.fragment_edit_question, container, false)
 
         questionId = args.questionID
 
         Log.v("CHKK",questionId.toString())
 
-        view.findViewById<Button>(R.id.addQuestionButton).setOnClickListener {
-            Update(view)
+        myView.findViewById<Button>(R.id.addQuestionButton).setOnClickListener {
+            Update()
         }
 
-        val spinner: Spinner = view.findViewById(R.id.spinner)
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.question_category_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
-        }
-        spinner.onItemSelectedListener = this
-
-        return view
+        return myView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val spinner: Spinner = myView.findViewById(R.id.spinner)
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.question_category_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        spinner.onItemSelectedListener = this
+
         val list = DatabaseHelper.getAllQuestionData()
 
-        Log.v("CHKK",list.toString())
+        controller = EditQuestionController(list,this)
 
-        list.forEach {
-            if(it.id == questionId){
-                view.findViewById<EditText>(R.id.newQuestion).setText(it.question)
-                view.findViewById<EditText>(R.id.Answer1).setText(it.answers.get(0))
-                view.findViewById<EditText>(R.id.Answer2).setText(it.answers.get(1))
-                view.findViewById<EditText>(R.id.Answer3).setText(it.answers.get(2))
-                view.findViewById<EditText>(R.id.Answer4).setText(it.answers.get(3))
-
-                if(it.trueAnswer.equals(it.answers.get(0))){
-                    view.findViewById<RadioButton>(R.id.firstAnswerRadioButton).setChecked(true)
-                }
-                else if(it.trueAnswer.equals(it.answers.get(1))){
-                    view.findViewById<RadioButton>(R.id.secondAnswerRadioButton).setChecked(true)
-                }
-                else if(it.trueAnswer.equals(it.answers.get(2))){
-                    view.findViewById<RadioButton>(R.id.thirdAnswerRadioButton).setChecked(true)
-                }
-                else if(it.trueAnswer.equals(it.answers.get(3))){
-                    view.findViewById<RadioButton>(R.id.fourthAnswerRadioButton).setChecked(true)
-                }
-
-                val spinner = view.findViewById<Spinner>(R.id.spinner)
-                for (i in 0 until spinner.getCount()) {
-                    if (spinner.getItemAtPosition(i).equals(it.category)) {
-                        spinner.setSelection(i)
-                        break
-                    }
-                }
-
-                selectedCategory = it.category
-            }
-        }
+        controller.findQuestionAndShow(questionId)
 
 
     }
 
-    private fun Update(view: View?) {
-        Question = view!!.findViewById<EditText>(R.id.newQuestion).text.toString()
-        Answer1 = view.findViewById<EditText>(R.id.Answer1).text.toString()
-        Answer2 = view.findViewById<EditText>(R.id.Answer2).text.toString()
-        Answer3 = view.findViewById<EditText>(R.id.Answer3).text.toString()
-        Answer4 = view.findViewById<EditText>(R.id.Answer4).text.toString()
+    fun Update() {
+        Question = myView.findViewById<EditText>(R.id.newQuestion).text.toString()
+        Answer1 = myView.findViewById<EditText>(R.id.Answer1).text.toString()
+        Answer2 = myView.findViewById<EditText>(R.id.Answer2).text.toString()
+        Answer3 = myView.findViewById<EditText>(R.id.Answer3).text.toString()
+        Answer4 = myView.findViewById<EditText>(R.id.Answer4).text.toString()
 
-        val radioGroup = view.findViewById<RadioGroup>(R.id.questionRadioGroup)
+        val radioGroup = myView.findViewById<RadioGroup>(R.id.questionRadioGroup)
 
         if(Question.isNullOrEmpty()){
             Toast.makeText(requireContext(),"Question is Empty", Toast.LENGTH_SHORT).show()
@@ -131,32 +98,21 @@ class EditQuestionFragment : Fragment(), AdapterView.OnItemSelectedListener {
         else if(selectedCategory.equals("Select a Category")){
             Toast.makeText(requireContext(),"Category Not Selected", Toast.LENGTH_SHORT).show()
         }else {
-            val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
 
-            val trueAnswer = getTrueAnswer(radioGroup.checkedRadioButtonId)
-            val question = QuestionModel(
-                Question,
-                selectedCategory,
-                listOf(
-                    Answer1, Answer2, Answer3, Answer4
-                ),
-                trueAnswer!!,
-                currentDate
+            controller.updateRecord(
+                questionId,
+                Question.trim(),
+                Answer1.trim(),
+                Answer2.trim(),
+                Answer3.trim(),
+                Answer4.trim(),
+                getTrueAnswer(radioGroup.checkedRadioButtonId)
             )
 
-            val id = DatabaseHelper.updateQuestionData(question,questionId)
-            if (id != null) {
-                Toast.makeText(requireContext(), "Question Updated Successfully !!!", Toast.LENGTH_SHORT).show()
-            }
-            Log.v(
-                "DATOO",
-                Question + " " + Answer1 + " " + Answer2 + " " + Answer3 + " " + Answer4 + " " + selectedCategory
-            )
         }
     }
 
-    private fun getTrueAnswer(checkedId: Int): String? {
+    fun getTrueAnswer(checkedId: Int): String? {
         when (checkedId) {
             R.id.firstAnswerRadioButton-> return Answer1
             R.id.secondAnswerRadioButton -> return Answer2
@@ -168,9 +124,53 @@ class EditQuestionFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         selectedCategory = parent!!.getItemAtPosition(position).toString()
+        controller.setSelectedCategory(parent!!.getItemAtPosition(position).toString())
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+    }
+
+    fun showQuestion(
+        question: String,
+        s1: String,
+        s2: String,
+        s3: String,
+        s4: String,
+        trueAnswer: String,
+        category: String
+    ) {
+        myView.findViewById<EditText>(R.id.newQuestion).setText(question)
+        myView.findViewById<EditText>(R.id.Answer1).setText(s1)
+        myView.findViewById<EditText>(R.id.Answer2).setText(s2)
+        myView.findViewById<EditText>(R.id.Answer3).setText(s3)
+        myView.findViewById<EditText>(R.id.Answer4).setText(s4)
+
+        if(trueAnswer.equals(s1)){
+            myView.findViewById<RadioButton>(R.id.firstAnswerRadioButton).setChecked(true)
+        }
+        else if(trueAnswer.equals(s2)){
+            myView.findViewById<RadioButton>(R.id.secondAnswerRadioButton).setChecked(true)
+        }
+        else if(trueAnswer.equals(s3)){
+            myView.findViewById<RadioButton>(R.id.thirdAnswerRadioButton).setChecked(true)
+        }
+        else if(trueAnswer.equals(s4)){
+            myView.findViewById<RadioButton>(R.id.fourthAnswerRadioButton).setChecked(true)
+        }
+
+        val spinner = myView.findViewById<Spinner>(R.id.spinner)
+        for (i in 0 until spinner.getCount()) {
+            if (spinner.getItemAtPosition(i).equals(category)) {
+                spinner.setSelection(i)
+                break
+            }
+        }
+
+        selectedCategory = category
+        controller.setSelectedCategory(category)
+    }
+
+    fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 }
