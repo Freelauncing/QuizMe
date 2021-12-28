@@ -66,15 +66,15 @@ class HomeFragment : Fragment(), HomeAdapter.RefreshPlease {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val list = DatabaseHelper.getAllQuestionData()
-
-        controller = HomeController(list,this)
-
         if(LoginActivity.Role.equals("admin")){
 
            refreshQuestions()
 
         }else {
+
+            val list = DatabaseHelper.getAllQuestionData()
+
+            controller = HomeController(list,this)
 
             myView_student.findViewById<Button>(R.id.playButton).setOnClickListener {
                 if (controller.getQuestionsFromDatabase()) {
@@ -89,14 +89,15 @@ class HomeFragment : Fragment(), HomeAdapter.RefreshPlease {
     }
 
     fun refreshQuestions() {
+
+        val list = DatabaseHelper.getAllQuestionData()
+
+        controller = HomeController(list,this)
         // getting the recyclerview by its id
         val recyclerview = myView_admin.findViewById<RecyclerView>(R.id.recyclerview_questions)
 
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(context)
-
-
-        val list = controller.list
 
         Log.v("CHECK",list.toString())
 

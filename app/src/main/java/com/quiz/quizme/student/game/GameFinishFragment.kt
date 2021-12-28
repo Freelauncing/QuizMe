@@ -61,7 +61,7 @@ class GameFinishFragment : Fragment() {
             LoginActivity.Fullname,
             args.numCorrect.toString(),
             args.numQuestions.toString(),
-            grade.toString()+" % ",
+            String.format("%.2f", grade)+" % ",
             currentDate)
 
         controller = GameFinishController(studentTestModel,this)

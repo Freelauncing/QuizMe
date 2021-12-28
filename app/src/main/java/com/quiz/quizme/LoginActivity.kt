@@ -1,5 +1,6 @@
 package com.quiz.quizme
 
+import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -53,6 +54,8 @@ class LoginActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        checkAndStoreQuestion()
 
         submitBtn.setOnClickListener {
 
@@ -126,4 +129,29 @@ class LoginActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
     }
 
+    fun checkAndStoreQuestion(){
+        try {
+            if (!checkQuestions()) {
+                storeQuestions()
+                val list = SampleData.SAMPLE_QUESTION_MODELS
+                list.forEach {
+                    DatabaseHelper.insertQuestionsData(it)
+                }
+            }
+        }catch (e:Exception){
+
+        }
+    }
+
+    fun storeQuestions(){
+        val sharedPreference =  getSharedPreferences("QUIZ_QUIZ_ME_QUESTION", Context.MODE_PRIVATE)
+        var editor = sharedPreference.edit()
+        editor.putBoolean("Question",true)
+        editor.commit()
+    }
+
+    fun checkQuestions(): Boolean{
+        val sharedPreference =  getSharedPreferences("QUIZ_QUIZ_ME_QUESTION",Context.MODE_PRIVATE)
+        return sharedPreference.getBoolean("Question",false)
+    }
 }
